@@ -15,7 +15,7 @@ export function AppProvider() {
         links: [
             httpBatchLink({
                 transformer: SuperJSON,
-                url: 'http://localhost:3000/trpc/',
+                url: '/trpc/',
                 headers: () => {
 
                     if (localStorage.getItem('token')) {
