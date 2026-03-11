@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgres"
+}
+
+model User {
+  id       String @id @default(cuid())
+  name     String
+  email    String @unique()
+  password String
+
+  @@map("users")
+}
+
+model Barber {
+  id       String  @id @default(uuid())
+  name     String
+  isActive Boolean @default(true)
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  orderServices OrderService[]
+
+  @@map("barbers")
+}
+
+model Service {
+  id            String         @id @default(cuid())
+  name          String
+  price         Float
+  duration      Int
+  orders        Order[]
+  orderServices OrderService[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("services")
+}
+
+model Costumer {
+  id            String         @id @default(cuid())
+  name          String
+  orders        Order[]
+  orderServices OrderService[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("costumers")
+}
+
+model Order {
+  id            String         @id @default(cuid())
+  custumerId    String?
+  total         Float
+  done        Boolean   @default(false)
+  custumer      Costumer?      @relation(fields: [custumerId], references: [id])
+  services      Service[]
+  orderServices OrderService[]
+  orderPayments OrderPayment[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("orders")
+}
+
+model OrderService {
+  id          String    @id @default(cuid())
+  orderId     String
+  barberId    String
+  custumerId  String?
+  serviceId   String
+  price       Float
+  description String
+  barber      Barber    @relation(fields: [barberId], references: [id])
+  custumer    Costumer? @relation(fields: [custumerId], references: [id])
+  service     Service   @relation(fields: [serviceId], references: [id])
+  order       Order     @relation(fields: [orderId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("order_service")
+}
+
+model OrderPayment {
+  id        String         @id @default(cuid())
+  orderId   String
+  value     Float
+  method    PaymentMethods @relation(fields: [methodId], references: [id])
+  order     Order          @relation(fields: [orderId], references: [id])
+  methodId  String
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model PaymentMethods {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orderPayments OrderPayment[]
+}
