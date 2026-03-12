@@ -4,6 +4,8 @@ import { Item, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/i
 import { api } from "@/lib/api"
 import { FormService } from "@/modals/form-service"
 
+export const handle = { title: 'Serviços' }
+
 export function Component() {
 
     const services = api.services.list.useQuery()

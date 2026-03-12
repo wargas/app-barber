@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
-import { useEffect } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router";
+import { useEffect, useMemo } from "react";
+import { Link, Outlet, useLocation, useMatch, useMatches, useNavigate } from "react-router";
 import {
     Sidebar,
     SidebarContent,
@@ -20,13 +20,23 @@ import { Button } from "@/components/ui/button";
 import { PersonStanding, ScissorsIcon, ShoppingBag, User2, UserCheck, UserCircle } from "lucide-react";
 import { modal } from "@/components/modal";
 import { FormComanda } from "@/modals/form-comanda";
+import { SiteHeader } from "@/components/site-header";
+import _ from "lodash";
 
 export function Component() {
 
     const location = useLocation()
     const navigate = useNavigate()
     const user = api.auth.me.useQuery()
+    const match = useMatches()
 
+    const title = useMemo(() => {
+        const route = match.findLast(m => _.has(m, 'handle.title'));
+
+        if(!route) return '';
+
+        return _.get(route, 'handle.title') as string;
+    }, [match])
 
     useEffect(() => {
         if (!localStorage.getItem('token')) {
@@ -35,7 +45,7 @@ export function Component() {
 
         if (user.isLoading) return;
 
-        if (!user.data) {
+        if (!user.data?.id) {
             navigate('/login')
         }
 
@@ -47,7 +57,7 @@ export function Component() {
     }
 
     async function criarComanda() {
-        await modal(FormComanda, { title: 'Nova comanda'})
+        await modal(FormComanda, { title: 'Nova comanda' })
     }
 
     return (
@@ -69,7 +79,7 @@ export function Component() {
                             >
                                 <button >
                                     <IconInnerShadowTop className="size-5!" />
-                                    <span className="text-base font-semibold">Acme Inc.</span>
+                                    <span className="text-base font-semibold">Barbearia</span>
                                 </button>
                             </SidebarMenuButton>
                         </SidebarMenuItem>
@@ -155,6 +165,7 @@ export function Component() {
                 </SidebarFooter>
             </Sidebar>
             <SidebarInset>
+                <SiteHeader title={title} />
                 <Outlet />
             </SidebarInset>
         </SidebarProvider>

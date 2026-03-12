@@ -43,8 +43,10 @@ export const authRouter = router({
             return { token, type: 'Bearer' };
         }),
     me: protectedProcedure.query(async ({ ctx }) => {
-        const user = await db.user.findFirst({ where: { id: ctx.userId } })
+        const user = await db.user.findFirst({ where: { id: ctx.userId }, omit: { password: true } })
 
-        return _.omit(user, 'password');
+        const avatar = 'https://gravatar.com/avatar/'+Bun.SHA256.hash(user?.email!, 'hex')
+
+        return {...user!, avatar}
     })
 })

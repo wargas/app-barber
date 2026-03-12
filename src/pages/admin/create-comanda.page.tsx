@@ -17,6 +17,7 @@ import { toast } from "sonner"
 
 type Input = RouterInput['orders']['close']
 
+export const handle = { title: 'Comanda' }
 
 export function Component() {
     const params = useParams<{ id: string }>()

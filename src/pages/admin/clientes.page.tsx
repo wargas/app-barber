@@ -6,6 +6,8 @@ import { api } from "@/lib/api";
 import type { InputCostumersCreate } from "@/types";
 import { useForm } from "react-hook-form";
 
+export const handle = { title: 'Clientes' }
+
 export function Component() {
 
     const form = useForm<InputCostumersCreate>()
