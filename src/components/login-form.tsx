@@ -13,6 +13,8 @@ import type { InputSignin } from "@/types"
 import { Spinner } from "./ui/spinner"
 import { api } from "@/lib/api"
 import { useNavigate } from "react-router"
+import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
+import { AlertTriangle } from "lucide-react"
 
 export function LoginForm({
   className,
@@ -22,7 +24,7 @@ export function LoginForm({
   const navigate = useNavigate()
   const form = useForm<InputSignin>({})
 
-  const { mutateAsync } = api.auth.sigin.useMutation()
+  const { mutateAsync, isError, error } = api.auth.sigin.useMutation()
 
   async function handleSubmit(data: InputSignin) {
     try {
@@ -46,6 +48,18 @@ export function LoginForm({
             Informe Email e Senha para entrar
           </p>
         </div>
+
+        {isError && (
+
+          <Alert variant={'destructive'}>
+            <AlertTriangle />
+            <AlertTitle>Atenção</AlertTitle>
+            <AlertDescription>
+              Email ou senha incorretos
+            </AlertDescription>
+          </Alert>
+        )}
+
         <Field>
           <FieldLabel htmlFor="email">Email</FieldLabel>
           <Input {...form.register('email')} />

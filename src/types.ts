@@ -7,3 +7,9 @@ export type RouterInput = inferRouterInputs<AppRouter>
 export type InputSignin = RouterInput['auth']['sigin']
 export type InputCostumersCreate = RouterInput['custumers']['create']
 export type InputServicesCreate = RouterInput['services']['create']
+
+declare global {
+  interface Number {
+    toCurrency(): string;
+  }
+}

@@ -1,37 +1,79 @@
+import { modal } from "@/components/modal";
 import { Button } from "@/components/ui/button";
-import { Field, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Spinner } from "@/components/ui/spinner";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { api } from "@/lib/api";
-import type { InputCostumersCreate } from "@/types";
-import { useForm } from "react-hook-form";
+import { FormBarbeiro } from "@/modals/form-barbeiro";
+import { FormCliente } from "@/modals/form-cliente";
 
-export const handle = { title: 'Clientes' }
+import { Pen } from "lucide-react";
+import { Activity } from "react";
+
+
+export const handle = { title: 'Profissionais' }
 
 export function Component() {
 
-    const form = useForm<InputCostumersCreate>()
-    const { mutateAsync } = api.custumers.create.useMutation()
+    const query = api.custumers.list.useQuery()
 
-    async function handleSubmit(params: InputCostumersCreate) {
-        await mutateAsync(params)
+    async function openFormCliente(id: string | null = null) {
+        const response = await modal(FormCliente, {
+            title: 'Salvar Cliente',
+            data: { id }
+        })
+
+        if (response) {
+            query.refetch()
+        }
     }
 
-    return <div className="p-4">
-        <h1>CLIENTES</h1>
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="max-w-sm">
-            <Field>
-                <FieldLabel>Nome</FieldLabel>
-                <Input {...form.register('name')} />
-            </Field>
-            <div className="mt-4">
-                <Button type="submit">
-                    {form.formState.isSubmitting && (
-                        <Spinner />
-                    )}
-                    Cadastrar
-                </Button>
-            </div>
-        </form>
+
+
+    return <div>
+
+
+        <div className="p-4">
+            <Card className="gap-0">
+                <CardHeader className="border-b">
+                    <CardTitle>Clientes</CardTitle>
+                    <CardDescription>Lista os clientes cadastrados</CardDescription>
+                    <CardAction>
+                        <Button variant={'outline'} onClick={() => openFormCliente(null)}>Adicionar</Button>
+                    </CardAction>
+                </CardHeader>
+                <CardContent className="p-0">
+                    <Activity mode={query.isLoading ? 'visible' : 'hidden'}>
+                        <div className="min-h-64 flex justify-center items-center">
+                            <Spinner />
+                        </div>
+                    </Activity>
+                    <Table className="mb-0">
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead>Nome</TableHead>
+                                <TableHead></TableHead>
+                            </TableRow>
+
+                        </TableHeader>
+                        <TableBody>
+                            {query.data?.map(item => (
+                                <TableRow key={item.id}>
+                                    <TableCell>{item.name}</TableCell>
+                                    <TableCell>
+                                        <div className="flex justify-end">
+                                            <Button onClick={() => openFormCliente(item.id)} size={'icon-sm'} variant={'ghost'}>
+                                                <Pen size={'1px'} />
+                                            </Button>
+                                        </div>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </CardContent>
+            </Card>
+
+        </div>
     </div>
 }

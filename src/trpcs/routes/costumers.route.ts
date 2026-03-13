@@ -7,6 +7,13 @@ export const costumersRouter = router({
     list: protectedProcedure.query(async () => {
         return await db.costumer.findMany();
     }),
+    show: protectedProcedure
+        .input(z.string())
+        .query(async (opts) => {
+            return await db.costumer.findFirst({
+                where: { id: opts.input }
+            });
+        }),
     delete: protectedProcedure
         .input(z.string())
         .mutation(async ({ input }) => {
@@ -27,7 +34,7 @@ export const costumersRouter = router({
         .input(z.object({ name: z.string(), id: z.string() }))
         .mutation(async opts => {
 
-            const inserted = await db.barber.update({
+            const inserted = await db.costumer.update({
                 where: { id: opts.input.id },
                 data: omit(opts.input, 'id')
             })

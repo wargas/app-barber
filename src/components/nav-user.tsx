@@ -28,6 +28,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar'
+import { Link } from "react-router"
 
 export function NavUser({
   user,
@@ -37,7 +38,7 @@ export function NavUser({
     email: string
     avatar: string
   }
-}) { 
+}) {
   const { isMobile } = useSidebar()
 
   return (
@@ -83,8 +84,8 @@ export function NavUser({
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
+            {/* <DropdownMenuGroup> */}
+            {/* <DropdownMenuItem>
                 <IconUserCircle />
                 Account
               </DropdownMenuItem>
@@ -97,10 +98,12 @@ export function NavUser({
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <IconLogout />
-              Log out
+            <DropdownMenuSeparator /> */}
+            <DropdownMenuItem asChild>
+              <Link to={'/login'}>
+                <IconLogout />
+                Sair
+              </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

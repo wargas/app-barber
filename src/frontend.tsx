@@ -9,6 +9,12 @@ import { createRoot } from "react-dom/client";
 import { AppProvider } from "./app-provider";
 import "./index.css";
 
+
+
+Number.prototype.toCurrency = function() {
+  return this.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})
+}
+
 const elem = document.getElementById("root")!;
 const app = (
   <AppProvider />

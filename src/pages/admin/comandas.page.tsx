@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { api } from "@/lib/api"
 import { formatDate } from 'date-fns'
 import { Search } from "lucide-react"
-import { Link, useNavigate } from "react-router"
+import { useNavigate } from "react-router"
 
 export const handle = { title: 'Comandas' }
 
@@ -35,10 +35,10 @@ export function Component() {
                                 <TableCell>{item.custumer?.name}</TableCell>
                                 <TableCell>
                                     {item.orderServices.map(s => (
-                                        <p key={s.id}>{s.service.name} (R$ {s.price})</p>
+                                        <p key={s.id}>{s.service.name} ({s.price.toCurrency()})</p>
                                     ))}
                                 </TableCell>
-                                <TableCell>{item.total}</TableCell>
+                                <TableCell>{item.total.toCurrency()}</TableCell>
                                 <TableCell>{item.done ? 'FECHADA' : 'ABERTA'}</TableCell>
                                 <TableCell>
                                     <Button onClick={() => navigate(`/comandas/${item.id}`)} variant={'outline'} size={'icon-sm'}>

@@ -6,22 +6,44 @@ import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
 import { api } from "@/lib/api"
 import type { InputServicesCreate } from "@/types"
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
 export function FormService() {
     const { close, options } = useModal()
     const form = useForm<InputServicesCreate>()
-    const mutation = api.services.create.useMutation()
+    const { mutateAsync: create } = api.services.create.useMutation()
+    const { mutateAsync: update } = api.services.update.useMutation()
+
+    const query = api.services.show.useQuery(options.data, {
+        enabled: !!options.data
+    })
 
     async function handleSubmit(data: InputServicesCreate) {
-        const req = await mutation.mutateAsync({
-            name: data.name,
-            duration: parseInt(String(data.duration)),
-            price: parseInt(String(data.price))
-        })
-
-        close(req)
+        if (options.data) {
+            await update({
+                id: String(options.data),
+                name: data.name,
+                duration: parseInt(String(data.duration)),
+                price: parseInt(String(data.price))
+            })
+        } else {
+            await create({
+                name: data.name,
+                duration: parseInt(String(data.duration)),
+                price: parseInt(String(data.price))
+            })
+        }
+        close(true)
     }
+
+    useEffect(() => {
+        if(query.data?.id) {
+            form.setValue('name', query.data.name);
+            form.setValue('price', query.data.price);
+            form.setValue('duration', query.data.duration);
+        }
+    }, [query.data])
 
     return <>
         <div className="flex flex-col p-4 gap-4">

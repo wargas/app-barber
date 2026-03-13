@@ -45,7 +45,7 @@ export function Component() {
 
         if (user.isLoading) return;
 
-        if (!user.data?.id) {
+        if (!user.data) {
             navigate('/login')
         }
 
@@ -133,7 +133,7 @@ export function Component() {
                                     <SidebarMenuButton tooltip="barbeiros" asChild>
                                         <Link to={'/barbeiros'}>
                                             <UserCircle />
-                                            <span>Barbeiros</span>
+                                            <span>Profissionais</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
