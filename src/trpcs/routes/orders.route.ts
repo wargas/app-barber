@@ -3,17 +3,38 @@ import { protectedProcedure, router } from "../trpc";
 import z from "zod";
 import { method, omit, sumBy } from "lodash";
 import { TRPCError } from "@trpc/server";
+import { addHours, endOfDay, parse, startOfDay } from "date-fns";
 
 export const ordersRouter = router({
-    list: protectedProcedure.query(async () => {
-        return await db.order.findMany({
-            include: {
-                custumer: true, orderServices: {
-                    include: { service: true }
+    list: protectedProcedure
+        .input(z.object({
+            status: z.enum(['abertas', 'fechadas', 'todas']),
+            start: z.string(),
+            end: z.string()
+        }))
+        .query(async ({ input: { start, end, status } }) => {
+
+            const startDate = startOfDay(parse(start, 'yyyy-MM-dd', new Date()))
+
+            const endDate = endOfDay(parse(end, 'yyyy-MM-dd', new Date()));
+
+            console.log({startDate, endDate})
+
+            return await db.order.findMany({
+                where: {
+                    ...status != 'todas' ? { done: status == 'fechadas' } : {},
+                    createdAt: {
+                        gte: startDate,
+                        lte: endDate,
+                    }
+                },
+                include: {
+                    custumer: true, orderServices: {
+                        include: { service: true }
+                    }
                 }
-            }
-        });
-    }),
+            });
+        }),
     show: protectedProcedure
         .input(z.string())
         .query(async (opts) => {

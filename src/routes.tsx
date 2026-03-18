@@ -1,4 +1,5 @@
 import type { RouteObject } from "react-router";
+import { authMiddleware } from "./lib/auth-middleware";
 
 export const routes = [
     {
@@ -8,6 +9,7 @@ export const routes = [
             {
                 path: '/',
                 lazy: () => import('@/pages/admin/layout'),
+                middleware: [authMiddleware],
                 children: [
                     {
                         path: '/dashboard',
@@ -28,7 +30,7 @@ export const routes = [
                     },
                     {
                         path: '/comandas',
-                        lazy: () => import('@/pages/admin/comandas.page')
+                        lazy: () => import('@/pages/admin/comandas.page'),
                     },
                     {
                         path: '/comandas/:id',

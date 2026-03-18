@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 import { useEffect, useMemo } from "react";
-import { Link, Outlet, useLocation, useMatch, useMatches, useNavigate } from "react-router";
+import { Link, Outlet, useLocation, useMatch, useMatches, useNavigate, type MiddlewareFunction } from "react-router";
 import {
     Sidebar,
     SidebarContent,
@@ -23,6 +23,7 @@ import { FormComanda } from "@/modals/form-comanda";
 import { SiteHeader } from "@/components/site-header";
 import _ from "lodash";
 
+
 export function Component() {
 
     const location = useLocation()
@@ -33,16 +34,12 @@ export function Component() {
     const title = useMemo(() => {
         const route = match.findLast(m => _.has(m, 'handle.title'));
 
-        if(!route) return '';
+        if (!route) return '';
 
         return _.get(route, 'handle.title') as string;
     }, [match])
 
     useEffect(() => {
-        if (!localStorage.getItem('token')) {
-            navigate('/login')
-        }
-
         if (user.isLoading) return;
 
         if (!user.data) {
