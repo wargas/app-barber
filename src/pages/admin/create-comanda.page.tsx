@@ -1,3 +1,4 @@
+import { InputMoney } from "@/components/input-money"
 import { modal } from "@/components/modal"
 import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -58,7 +59,7 @@ export function Component() {
 
     async function submitHandle(data: Input) {
         try {
-            await closeOrder({ ...data, payment: data.payment.map(i => ({ ...i, value: parseFloat(i.value.toString()) })) })
+            await closeOrder(data)
             toast.success(`Comanda fechada com sucesso`)
             navigate('/comandas')
         } catch (error) {
@@ -147,7 +148,7 @@ export function Component() {
                                         </Select>
                                     </TableCell>
                                     <TableCell>
-                                        <Input {...form.register(`payment.${index}.value`)} />
+                                        <InputMoney onChangeValue={e => form.setValue(`payment.${index}.value`, e) } />
                                     </TableCell>
                                     <TableCell>
                                         <Button onClick={() => fieldsPayment.remove(index)} variant={'outline'}>-</Button>

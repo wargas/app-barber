@@ -1,3 +1,4 @@
+import { InputMoney } from "@/components/input-money"
 import { useModal } from "@/components/modal/hook-modal"
 import { Button } from "@/components/ui/button"
 import { DrawerFooter } from "@/components/ui/drawer"
@@ -60,7 +61,7 @@ export function FormService() {
 
             <Field>
                 <FieldLabel>Preço</FieldLabel>
-                <Input {...form.register('price')} />
+                <InputMoney onChangeValue={e => form.setValue('price', e)} />
             </Field>
 
         </div>
