@@ -6,19 +6,34 @@ import { Spinner } from "@/components/ui/spinner"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { api } from "@/lib/api"
 import { FormService } from "@/modals/form-service"
-import { Pen } from "lucide-react"
+import { Pen, Trash2Icon } from "lucide-react"
 import { Activity } from "react"
+import { toast } from "sonner"
 
 export const handle = { title: 'Serviços' }
 
 export function Component() {
 
     const services = api.services.list.useQuery()
+    const { mutateAsync: deleteMutation } = api.services.delete.useMutation()
+
 
     const handleOpenCreate = async (id: string | null = null) => {
         await modal(FormService, { title: 'Cadastrar Serviço', data: id })
 
         services.refetch()
+    }
+
+
+    async function handleDelete(id:string) {
+
+        if(confirm("Confirma a exclusão do cliente")) {
+            
+             deleteMutation(id).then(async () => {
+                toast("Excluido com sucesso")
+                services.refetch()
+             })
+        }
     }
 
     return (
@@ -56,6 +71,9 @@ export function Component() {
                                     <TableCell>{item.duration} min</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
+                                        <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
+                                                <Trash2Icon />
+                                            </Button>
                                             <Button onClick={() => handleOpenCreate(item.id)} size={'icon-sm'} variant={'ghost'}>
                                                 <Pen size={'1px'} />
                                             </Button>

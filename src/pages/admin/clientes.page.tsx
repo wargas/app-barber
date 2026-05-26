@@ -7,8 +7,9 @@ import { api } from "@/lib/api";
 import { FormBarbeiro } from "@/modals/form-barbeiro";
 import { FormCliente } from "@/modals/form-cliente";
 
-import { Pen } from "lucide-react";
+import { Pen, Trash2Icon } from "lucide-react";
 import { Activity } from "react";
+import { toast } from "sonner";
 
 
 export const handle = { title: 'Profissionais' }
@@ -16,6 +17,8 @@ export const handle = { title: 'Profissionais' }
 export function Component() {
 
     const query = api.custumers.list.useQuery()
+
+    const { mutateAsync: deleteCustumer } = api.custumers.delete.useMutation()
 
     async function openFormCliente(id: string | null = null) {
         const response = await modal(FormCliente, {
@@ -25,6 +28,17 @@ export function Component() {
 
         if (response) {
             query.refetch()
+        }
+    }
+
+    async function handleDelete(id:string) {
+
+        if(confirm("Confirma a exclusão do cliente")) {
+            
+             deleteCustumer(id).then(async () => {
+                toast("Excluido com sucesso")
+                query.refetch()
+             })
         }
     }
 
@@ -62,6 +76,9 @@ export function Component() {
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
+                                            <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
+                                                <Trash2Icon />
+                                            </Button>
                                             <Button onClick={() => openFormCliente(item.id)} size={'icon-sm'} variant={'ghost'}>
                                                 <Pen size={'1px'} />
                                             </Button>

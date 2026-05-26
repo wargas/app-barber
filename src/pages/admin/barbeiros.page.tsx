@@ -9,9 +9,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { api } from "@/lib/api";
 import { FormBarbeiro } from "@/modals/form-barbeiro";
 
-import { Pen, PenTool } from "lucide-react";
+import { Pen, PenTool, Trash2Icon } from "lucide-react";
 import { Activity } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 
 export const handle = { title: 'Profissionais' }
@@ -19,6 +20,7 @@ export const handle = { title: 'Profissionais' }
 export function Component() {
 
     const query = api.barbers.list.useQuery()
+    const { mutateAsync: deleteMutation } = api.barbers.delete.useMutation()
 
     async function openFormBarbeiro(id: string | null = null) {
         const response = await modal(FormBarbeiro, {
@@ -28,6 +30,17 @@ export function Component() {
 
         if (response) {
             query.refetch()
+        }
+    }
+
+    async function handleDelete(id:string) {
+
+        if(confirm("Confirma a exclusão do cliente")) {
+            
+             deleteMutation(id).then(async () => {
+                toast("Excluido com sucesso")
+                query.refetch()
+             })
         }
     }
 
@@ -65,6 +78,9 @@ export function Component() {
                                     <TableCell>{item.name}</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
+                                        <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
+                                                <Trash2Icon />
+                                            </Button>
                                             <Button onClick={() => openFormBarbeiro(item.id)} size={'icon-sm'} variant={'ghost'}>
                                                 <Pen size={'1px'} />
                                             </Button>
