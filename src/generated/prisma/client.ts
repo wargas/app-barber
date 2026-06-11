@@ -79,3 +79,18 @@ export type OrderPayment = Prisma.OrderPaymentModel
  * 
  */
 export type PaymentMethods = Prisma.PaymentMethodsModel
+/**
+ * Model Product
+ * 
+ */
+export type Product = Prisma.ProductModel
+/**
+ * Model OrderProduct
+ * 
+ */
+export type OrderProduct = Prisma.OrderProductModel
+/**
+ * Model Schedule
+ * 
+ */
+export type Schedule = Prisma.ScheduleModel

@@ -29,12 +29,22 @@ export const routes = [
                         lazy: () => import('@/pages/admin/servicos.page')
                     },
                     {
+                        path: '/produtos',
+                        lazy: () => import('@/pages/admin/products.page')
+                    },
+                    
+
+                    {
                         path: '/comandas',
                         lazy: () => import('@/pages/admin/comandas.page'),
                     },
                     {
                         path: '/comandas/:id',
                         lazy: () => import('@/pages/admin/create-comanda.page')
+                    },
+                    {
+                        path: '/agenda',
+                        lazy: () => import('@/pages/admin/agenda.page')
                     }
                 ]
             },

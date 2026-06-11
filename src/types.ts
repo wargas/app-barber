@@ -7,6 +7,8 @@ export type RouterInput = inferRouterInputs<AppRouter>
 export type InputSignin = RouterInput['auth']['sigin']
 export type InputCostumersCreate = RouterInput['custumers']['create']
 export type InputServicesCreate = RouterInput['services']['create']
+export type InputProductsCreate = RouterInput['products']['create']
+export type InputSchedulesCreate = RouterInput['schedules']['create']
 
 declare global {
   interface Number {

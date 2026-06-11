@@ -17,7 +17,7 @@ import {
 import { NavUser } from "@/components/nav-user";
 import { IconCirclePlusFilled, IconDashboard, IconInnerShadowTop, IconMail } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { PersonStanding, ScissorsIcon, ShoppingBag, User2, UserCheck, UserCircle } from "lucide-react";
+import { PersonStanding, ScissorsIcon, ShoppingBag, ShoppingBasket, User2, UserCheck, UserCircle } from "lucide-react";
 import { modal } from "@/components/modal";
 import { FormComanda } from "@/modals/form-comanda";
 import { SiteHeader } from "@/components/site-header";
@@ -149,6 +149,23 @@ export function Component() {
                                         <Link to={'/servicos'}>
                                             <ScissorsIcon />
                                             <span>Serviços</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton tooltip="barbeiros" asChild>
+                                        <Link to={'/produtos'}>
+                                            <ShoppingBasket />
+                                            <span>Produtos</span>
+                                        </Link>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton tooltip="agendaß" asChild>
+                                        <Link to={'/agenda'}>
+                                            <ShoppingBasket />
+                                            <span>Agendamentos</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>

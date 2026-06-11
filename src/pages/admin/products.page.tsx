@@ -1,61 +1,53 @@
-import { modal } from "@/components/modal";
-import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Spinner } from "@/components/ui/spinner";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { api } from "@/lib/api";
-import { FormBarbeiro } from "@/modals/form-barbeiro";
+import { modal } from "@/components/modal"
+import { Button } from "@/components/ui/button"
+import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent } from "@/components/ui/card"
+import { Spinner } from "@/components/ui/spinner"
+import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
+import { api } from "@/lib/api"
+import { FormProduct } from "@/modals/form-product"
+import { Pen, Trash2Icon } from "lucide-react"
+import { Activity } from "react"
+import { toast } from "sonner"
 
-import { Pen, Trash2Icon } from "lucide-react";
-import { Activity } from "react";
-import { toast } from "sonner";
-
-
-export const handle = { title: 'Profissionais' }
+export const handle = { title: 'Produtos' }
 
 export function Component() {
 
-    const query = api.barbers.list.useQuery()
-    const { mutateAsync: deleteMutation } = api.barbers.delete.useMutation()
+    const services = api.products.list.useQuery()
+    const { mutateAsync: deleteMutation } = api.products.delete.useMutation()
 
-    async function openFormBarbeiro(id: string | null = null) {
-        const response = await modal(FormBarbeiro, {
-            title: 'Salvar Profissional',
-            data: { id }
-        })
 
-        if (response) {
-            query.refetch()
-        }
+    const handleOpenCreate = async (id: string | null = null) => {
+        await modal(FormProduct, { title: 'Cadastrar Produto', data: id })
+
+        services.refetch()
     }
+
 
     async function handleDelete(id:string) {
 
-        if(confirm("Confirma a exclusão do cliente")) {
+        if(confirm("Confirma a exclusão do produto")) {
             
              deleteMutation(id).then(async () => {
                 toast("Excluido com sucesso")
-                query.refetch()
+                services.refetch()
              })
         }
     }
 
-
-
-    return <div>
-
-
+    return (
         <div className="p-4">
+
             <Card className="gap-0">
                 <CardHeader className="border-b">
-                    <CardTitle>Profissionais</CardTitle>
-                    <CardDescription>Lista os Profissionais cadastrados</CardDescription>
+                    <CardTitle>Produtos</CardTitle>
+                    <CardDescription>Lista os tipos de produtos</CardDescription>
                     <CardAction>
-                        <Button variant={'outline'} onClick={() => openFormBarbeiro(null)}>Adicionar</Button>
+                        <Button variant={'outline'} onClick={() => handleOpenCreate()}>Adicionar</Button>
                     </CardAction>
                 </CardHeader>
                 <CardContent className="p-0">
-                    <Activity mode={query.isLoading ? 'visible' : 'hidden'}>
+                    <Activity mode={services.isLoading ? 'visible' : 'hidden'}>
                         <div className="min-h-64 flex justify-center items-center">
                             <Spinner />
                         </div>
@@ -64,20 +56,24 @@ export function Component() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Nome</TableHead>
+                                <TableHead>Preço</TableHead>
+                                <TableHead>Qtd</TableHead>
                                 <TableHead></TableHead>
                             </TableRow>
 
                         </TableHeader>
                         <TableBody>
-                            {query.data?.map(item => (
+                            {services.data?.map(item => (
                                 <TableRow key={item.id}>
                                     <TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}</TableCell>
+                                    <TableCell>{item.qty}</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
                                         <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
                                                 <Trash2Icon />
                                             </Button>
-                                            <Button onClick={() => openFormBarbeiro(item.id)} size={'icon-sm'} variant={'ghost'}>
+                                            <Button onClick={() => handleOpenCreate(item.id)} size={'icon-sm'} variant={'ghost'}>
                                                 <Pen size={'1px'} />
                                             </Button>
                                         </div>
@@ -90,5 +86,5 @@ export function Component() {
             </Card>
 
         </div>
-    </div>
+    )
 }

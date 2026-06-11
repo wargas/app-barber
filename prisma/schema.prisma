@@ -30,6 +30,7 @@ model Barber {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   orderServices OrderService[]
+  schedules     Schedule[]
 
   @@map("barbers")
 }
@@ -43,6 +44,7 @@ model Service {
   orderServices OrderService[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  schedules     Schedule[]
 
   @@map("services")
 }
@@ -62,13 +64,14 @@ model Order {
   id            String         @id @default(cuid())
   custumerId    String?
   total         Float
-  done        Boolean   @default(false)
+  done          Boolean        @default(false)
   custumer      Costumer?      @relation(fields: [custumerId], references: [id])
   services      Service[]
   orderServices OrderService[]
   orderPayments OrderPayment[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
+  orderProducts OrderProduct[]
 
   @@map("orders")
 }
@@ -109,4 +112,35 @@ model PaymentMethods {
   updatedAt DateTime @updatedAt
 
   orderPayments OrderPayment[]
+}
+
+model Product {
+  id    String @id @default(uuid())
+  name  String
+  qty   Float
+  price Float
+
+  orderProducts OrderProduct[]
+}
+
+model OrderProduct {
+  id        String  @id @default(cuid())
+  productid String
+  orderid   String
+  qty       Float
+  order     Order   @relation(fields: [orderid], references: [id])
+  product   Product @relation(fields: [productid], references: [id])
+}
+
+model Schedule {
+  id         String   @id @default(cuid())
+  clientName String   @default("")
+  serviceid  String
+  barberid   String
+  start      DateTime
+  end        DateTime
+  service    Service  @relation(fields: [serviceid], references: [id])
+  barber     Barber   @relation(fields: [barberid], references: [id])
+
+  @@map("schedules")
 }

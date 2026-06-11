@@ -183,6 +183,7 @@ export type BarberWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Barber"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Barber"> | Date | string
   orderServices?: Prisma.OrderServiceListRelationFilter
+  schedules?: Prisma.ScheduleListRelationFilter
 }
 
 export type BarberOrderByWithRelationInput = {
@@ -192,6 +193,7 @@ export type BarberOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   orderServices?: Prisma.OrderServiceOrderByRelationAggregateInput
+  schedules?: Prisma.ScheduleOrderByRelationAggregateInput
 }
 
 export type BarberWhereUniqueInput = Prisma.AtLeast<{
@@ -204,6 +206,7 @@ export type BarberWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Barber"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Barber"> | Date | string
   orderServices?: Prisma.OrderServiceListRelationFilter
+  schedules?: Prisma.ScheduleListRelationFilter
 }, "id">
 
 export type BarberOrderByWithAggregationInput = {
@@ -235,6 +238,7 @@ export type BarberCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutBarberInput
+  schedules?: Prisma.ScheduleCreateNestedManyWithoutBarberInput
 }
 
 export type BarberUncheckedCreateInput = {
@@ -244,6 +248,7 @@ export type BarberUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutBarberInput
+  schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutBarberInput
 }
 
 export type BarberUpdateInput = {
@@ -253,6 +258,7 @@ export type BarberUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderServices?: Prisma.OrderServiceUpdateManyWithoutBarberNestedInput
+  schedules?: Prisma.ScheduleUpdateManyWithoutBarberNestedInput
 }
 
 export type BarberUncheckedUpdateInput = {
@@ -262,6 +268,7 @@ export type BarberUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   orderServices?: Prisma.OrderServiceUncheckedUpdateManyWithoutBarberNestedInput
+  schedules?: Prisma.ScheduleUncheckedUpdateManyWithoutBarberNestedInput
 }
 
 export type BarberCreateManyInput = {
@@ -339,12 +346,27 @@ export type BarberUpdateOneRequiredWithoutOrderServicesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.BarberUpdateToOneWithWhereWithoutOrderServicesInput, Prisma.BarberUpdateWithoutOrderServicesInput>, Prisma.BarberUncheckedUpdateWithoutOrderServicesInput>
 }
 
+export type BarberCreateNestedOneWithoutSchedulesInput = {
+  create?: Prisma.XOR<Prisma.BarberCreateWithoutSchedulesInput, Prisma.BarberUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.BarberCreateOrConnectWithoutSchedulesInput
+  connect?: Prisma.BarberWhereUniqueInput
+}
+
+export type BarberUpdateOneRequiredWithoutSchedulesNestedInput = {
+  create?: Prisma.XOR<Prisma.BarberCreateWithoutSchedulesInput, Prisma.BarberUncheckedCreateWithoutSchedulesInput>
+  connectOrCreate?: Prisma.BarberCreateOrConnectWithoutSchedulesInput
+  upsert?: Prisma.BarberUpsertWithoutSchedulesInput
+  connect?: Prisma.BarberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.BarberUpdateToOneWithWhereWithoutSchedulesInput, Prisma.BarberUpdateWithoutSchedulesInput>, Prisma.BarberUncheckedUpdateWithoutSchedulesInput>
+}
+
 export type BarberCreateWithoutOrderServicesInput = {
   id?: string
   name: string
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  schedules?: Prisma.ScheduleCreateNestedManyWithoutBarberInput
 }
 
 export type BarberUncheckedCreateWithoutOrderServicesInput = {
@@ -353,6 +375,7 @@ export type BarberUncheckedCreateWithoutOrderServicesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutBarberInput
 }
 
 export type BarberCreateOrConnectWithoutOrderServicesInput = {
@@ -377,6 +400,7 @@ export type BarberUpdateWithoutOrderServicesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  schedules?: Prisma.ScheduleUpdateManyWithoutBarberNestedInput
 }
 
 export type BarberUncheckedUpdateWithoutOrderServicesInput = {
@@ -385,6 +409,59 @@ export type BarberUncheckedUpdateWithoutOrderServicesInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  schedules?: Prisma.ScheduleUncheckedUpdateManyWithoutBarberNestedInput
+}
+
+export type BarberCreateWithoutSchedulesInput = {
+  id?: string
+  name: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderServices?: Prisma.OrderServiceCreateNestedManyWithoutBarberInput
+}
+
+export type BarberUncheckedCreateWithoutSchedulesInput = {
+  id?: string
+  name: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutBarberInput
+}
+
+export type BarberCreateOrConnectWithoutSchedulesInput = {
+  where: Prisma.BarberWhereUniqueInput
+  create: Prisma.XOR<Prisma.BarberCreateWithoutSchedulesInput, Prisma.BarberUncheckedCreateWithoutSchedulesInput>
+}
+
+export type BarberUpsertWithoutSchedulesInput = {
+  update: Prisma.XOR<Prisma.BarberUpdateWithoutSchedulesInput, Prisma.BarberUncheckedUpdateWithoutSchedulesInput>
+  create: Prisma.XOR<Prisma.BarberCreateWithoutSchedulesInput, Prisma.BarberUncheckedCreateWithoutSchedulesInput>
+  where?: Prisma.BarberWhereInput
+}
+
+export type BarberUpdateToOneWithWhereWithoutSchedulesInput = {
+  where?: Prisma.BarberWhereInput
+  data: Prisma.XOR<Prisma.BarberUpdateWithoutSchedulesInput, Prisma.BarberUncheckedUpdateWithoutSchedulesInput>
+}
+
+export type BarberUpdateWithoutSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderServices?: Prisma.OrderServiceUpdateManyWithoutBarberNestedInput
+}
+
+export type BarberUncheckedUpdateWithoutSchedulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  orderServices?: Prisma.OrderServiceUncheckedUpdateManyWithoutBarberNestedInput
 }
 
 
@@ -394,10 +471,12 @@ export type BarberUncheckedUpdateWithoutOrderServicesInput = {
 
 export type BarberCountOutputType = {
   orderServices: number
+  schedules: number
 }
 
 export type BarberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderServices?: boolean | BarberCountOutputTypeCountOrderServicesArgs
+  schedules?: boolean | BarberCountOutputTypeCountSchedulesArgs
 }
 
 /**
@@ -417,6 +496,13 @@ export type BarberCountOutputTypeCountOrderServicesArgs<ExtArgs extends runtime.
   where?: Prisma.OrderServiceWhereInput
 }
 
+/**
+ * BarberCountOutputType without action
+ */
+export type BarberCountOutputTypeCountSchedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ScheduleWhereInput
+}
+
 
 export type BarberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -425,6 +511,7 @@ export type BarberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   createdAt?: boolean
   updatedAt?: boolean
   orderServices?: boolean | Prisma.Barber$orderServicesArgs<ExtArgs>
+  schedules?: boolean | Prisma.Barber$schedulesArgs<ExtArgs>
   _count?: boolean | Prisma.BarberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["barber"]>
 
@@ -455,6 +542,7 @@ export type BarberSelectScalar = {
 export type BarberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["barber"]>
 export type BarberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   orderServices?: boolean | Prisma.Barber$orderServicesArgs<ExtArgs>
+  schedules?: boolean | Prisma.Barber$schedulesArgs<ExtArgs>
   _count?: boolean | Prisma.BarberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type BarberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -464,6 +552,7 @@ export type $BarberPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Barber"
   objects: {
     orderServices: Prisma.$OrderServicePayload<ExtArgs>[]
+    schedules: Prisma.$SchedulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -866,6 +955,7 @@ readonly fields: BarberFieldRefs;
 export interface Prisma__BarberClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   orderServices<T extends Prisma.Barber$orderServicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Barber$orderServicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  schedules<T extends Prisma.Barber$schedulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Barber$schedulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SchedulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1309,6 +1399,30 @@ export type Barber$orderServicesArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.OrderServiceScalarFieldEnum | Prisma.OrderServiceScalarFieldEnum[]
+}
+
+/**
+ * Barber.schedules
+ */
+export type Barber$schedulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Schedule
+   */
+  select?: Prisma.ScheduleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Schedule
+   */
+  omit?: Prisma.ScheduleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ScheduleInclude<ExtArgs> | null
+  where?: Prisma.ScheduleWhereInput
+  orderBy?: Prisma.ScheduleOrderByWithRelationInput | Prisma.ScheduleOrderByWithRelationInput[]
+  cursor?: Prisma.ScheduleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScheduleScalarFieldEnum | Prisma.ScheduleScalarFieldEnum[]
 }
 
 /**

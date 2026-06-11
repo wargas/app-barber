@@ -1,6 +1,6 @@
-// import { db } from "./lib/db";
-// const password = Bun.password.hashSync('wrgs2703')
-// //await db.user.create({ data: { name: 'Wargas Teixeira', email: 'admin@deltex.com.br', password } })
+import { db } from "./lib/db";
+const password = Bun.password.hashSync('12345678')
+await db.user.create({ data: { name: 'Andre Teixeira', email: 'andre@admin.com', password } })
 
 // await db.paymentMethods.createMany({
 //     data: [
@@ -18,6 +18,6 @@
 //         },
 //     ]
 // })
-console.log(
-    Bun.SHA256.hash('admin@deltex', 'hex')
-)
+// console.log(
+//     Bun.SHA256.hash('admin@deltex', 'hex')
+// )

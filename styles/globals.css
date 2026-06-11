@@ -118,3 +118,12 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.fc-license-message {
+  display: none !important;
+}
+
+.fc-h-event {
+  background-color: transparent !important;
+}

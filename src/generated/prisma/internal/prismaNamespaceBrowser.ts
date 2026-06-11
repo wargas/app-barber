@@ -58,7 +58,10 @@ export const ModelName = {
   Order: 'Order',
   OrderService: 'OrderService',
   OrderPayment: 'OrderPayment',
-  PaymentMethods: 'PaymentMethods'
+  PaymentMethods: 'PaymentMethods',
+  Product: 'Product',
+  OrderProduct: 'OrderProduct',
+  Schedule: 'Schedule'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -167,6 +170,38 @@ export const PaymentMethodsScalarFieldEnum = {
 } as const
 
 export type PaymentMethodsScalarFieldEnum = (typeof PaymentMethodsScalarFieldEnum)[keyof typeof PaymentMethodsScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  qty: 'qty',
+  price: 'price'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const OrderProductScalarFieldEnum = {
+  id: 'id',
+  productid: 'productid',
+  orderid: 'orderid',
+  qty: 'qty'
+} as const
+
+export type OrderProductScalarFieldEnum = (typeof OrderProductScalarFieldEnum)[keyof typeof OrderProductScalarFieldEnum]
+
+
+export const ScheduleScalarFieldEnum = {
+  id: 'id',
+  clientName: 'clientName',
+  serviceid: 'serviceid',
+  barberid: 'barberid',
+  start: 'start',
+  end: 'end'
+} as const
+
+export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typeof ScheduleScalarFieldEnum]
 
 
 export const SortOrder = {
