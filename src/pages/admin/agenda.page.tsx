@@ -9,7 +9,7 @@ import { Trash2Icon } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { modal } from '@/components/modal';
 import { FormSchedule } from '@/modals/form-schedule';
-
+import type { EventSourceInput } from '@fullcalendar/core';
 
 export const handle = { title: 'Agendamentos' }
 
@@ -18,27 +18,38 @@ export function Component() {
 
     const barbeirosQuery = api.barbers.list.useQuery()
     const schedulesQuery = api.schedules.list.useQuery()
+    const { mutateAsync: deleteSchedule } = api.schedules.delete.useMutation()
 
-    const events = schedulesQuery.data?.map(item => {
-        return { 
-            backgroundColor: `var(--primary)`, 
-            padding: `0px`, 
-            borderColor: 'transparent', 
-            title: `${item.service.name} de ${item.clientName}`, 
-            start: item.start, 
-            end: item.end, 
-            resourceId: item.barberid }
-        
+    const events: EventSourceInput = schedulesQuery.data?.map(item => {
+        return {
+            backgroundColor: `var(--primary)`,
+            padding: `0px`,
+            borderColor: 'transparent',
+            title: `${item.service.name} de ${item.clientName}`,
+            start: item.start,
+            end: item.end,
+            resourceId: item.barberid,
+            extendedProps: {
+                id: item.id
+            }
+        }
+
     }) ?? []
 
     const resources = barbeirosQuery.data?.map(b => ({ id: b.id, title: b.name })) ?? []
 
     async function handleOpenForm() {
-        const response = await modal(FormSchedule, { title: `Novo agendamento`});
+        const response = await modal(FormSchedule, { title: `Novo agendamento` });
 
-        if(response) {
+        if (response) {
             schedulesQuery.refetch()
         }
+    }
+
+    async function handleDeleteSchedule(input: string) {
+
+        await deleteSchedule(input);
+        schedulesQuery.refetch()
     }
 
     return <div className='p-4'>
@@ -70,9 +81,7 @@ export function Component() {
 
                     <hr />
                     <p>{arg.event.start?.toLocaleTimeString()} a {arg.event.end?.toLocaleTimeString()}</p>
-                    <div className="flex">
-                        <Button size={`icon-sm`} variant={`ghost`}><Trash2Icon /></Button>
-                    </div>
+                    <Button onClick={() => handleDeleteSchedule(arg.event.extendedProps.id)} size={`icon-sm`} variant={`ghost`}><Trash2Icon /></Button>
                 </PopoverContent>
             </Popover>)}
         />
