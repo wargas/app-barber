@@ -7,6 +7,26 @@ export const costumersRouter = router({
     list: protectedProcedure.query(async () => {
         return await db.costumer.findMany();
     }),
+    paginate: protectedProcedure
+        .input(z.object({ page: z.number() }))
+        .query(async ({input: { page }}) => {
+            const perpage = 10
+            const skip = perpage * (page-1)
+
+            const total = await db.costumer.count()
+
+            const data = await db.costumer.findMany({
+                take: 10,
+                skip,
+                orderBy: { createdAt: 'desc'}
+            });
+
+            return {
+                num_pages: Math.ceil(total/perpage), page,
+                perPage: perpage,
+                data, total
+            }
+        }),
     show: protectedProcedure
         .input(z.string())
         .query(async (opts) => {
