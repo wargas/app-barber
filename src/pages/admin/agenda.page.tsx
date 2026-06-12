@@ -52,7 +52,7 @@ export function Component() {
         schedulesQuery.refetch()
     }
 
-    return <div className='p-4'>
+    return <div className='p-4 text-xs'>
         <Fullcalendar
             headerToolbar={{
                 left: "prev,next today",
@@ -64,6 +64,7 @@ export function Component() {
             initialView='resourceTimelineDay'
             resources={resources}
             events={events}
+            resourceAreaWidth={'25%'}
             customButtons={{
                 newEvent: {
                     text: `Novo agendamento`,
