@@ -18,7 +18,7 @@ export const ordersRouter = router({
 
             const endDate = endOfDay(parse(end, 'yyyy-MM-dd', new Date()));
 
-            console.log({startDate, endDate})
+            console.log({ startDate, endDate })
 
             return await db.order.findMany({
                 where: {
@@ -49,6 +49,9 @@ export const ordersRouter = router({
                             barber: true,
                             service: true
                         }
+                    },
+                    orderProducts: {
+                        include: { product: true }
                     },
                     orderPayments: true
                 }
@@ -86,14 +89,14 @@ export const ordersRouter = router({
 
             const order = await db.order.findFirst({
                 where: { id: opts.input.id },
-                include: { orderServices: true }
+                include: { orderServices: true, orderProducts: true }
             })
 
             if (!order) {
                 throw new TRPCError({ code: 'NOT_FOUND' })
             }
 
-            const total = sumBy(order.orderServices, 'price')
+            const total = sumBy(order.orderServices, 'price')+sumBy(order.orderProducts, `total`)
 
             const totalPago = sumBy(opts.input.payment, 'value')
 
@@ -143,6 +146,44 @@ export const ordersRouter = router({
                 id: input
             }
         })
-    })
+    }),
+    deleteProduct: protectedProcedure.input(z.string()).mutation(async ({ input }) => {
+        return await db.orderProduct.delete({
+            where: {
+                id: input
+            }
+        })
+    }),
+    addProduct: protectedProcedure.input(z.object({ orderId: z.string(), productId: z.string(), qty: z.number() }))
+        .mutation(async ({ input }) => {
+            const order = await db.order.findFirst({ where: { id: input.orderId }, include: { orderProducts: true } })
+            const product = await db.product.findFirst({where: {id: input.productId}})
+
+            if(!product || !order) return null;
+
+            const prevProduct = order.orderProducts.find(op => op.productid == product.id)
+
+            if(prevProduct) {
+                return await db.orderProduct.update({
+                    where: {
+                        id: prevProduct.id
+                    },
+                    data: {
+                        qty: prevProduct.qty + input.qty,
+                        total: (prevProduct.qty + input.qty) * product.price
+                    }
+                })
+            }
+
+            return await db.orderProduct.create({
+                data: {
+                    orderid: input.orderId,
+                    productid: input.productId,
+                    qty: input.qty,
+                    price: product.price,
+                    total: input.qty * product.price
+                }
+            })
+        })
 
 })
