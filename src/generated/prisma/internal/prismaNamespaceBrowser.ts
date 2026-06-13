@@ -95,7 +95,8 @@ export const BarberScalarFieldEnum = {
   name: 'name',
   isActive: 'isActive',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type BarberScalarFieldEnum = (typeof BarberScalarFieldEnum)[keyof typeof BarberScalarFieldEnum]
@@ -107,7 +108,8 @@ export const ServiceScalarFieldEnum = {
   price: 'price',
   duration: 'duration',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -117,7 +119,8 @@ export const CostumerScalarFieldEnum = {
   id: 'id',
   name: 'name',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type CostumerScalarFieldEnum = (typeof CostumerScalarFieldEnum)[keyof typeof CostumerScalarFieldEnum]
@@ -129,7 +132,8 @@ export const OrderScalarFieldEnum = {
   total: 'total',
   done: 'done',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
@@ -144,7 +148,8 @@ export const OrderServiceScalarFieldEnum = {
   price: 'price',
   description: 'description',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type OrderServiceScalarFieldEnum = (typeof OrderServiceScalarFieldEnum)[keyof typeof OrderServiceScalarFieldEnum]
@@ -156,7 +161,8 @@ export const OrderPaymentScalarFieldEnum = {
   value: 'value',
   methodId: 'methodId',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  userid: 'userid'
 } as const
 
 export type OrderPaymentScalarFieldEnum = (typeof OrderPaymentScalarFieldEnum)[keyof typeof OrderPaymentScalarFieldEnum]
@@ -176,7 +182,8 @@ export const ProductScalarFieldEnum = {
   id: 'id',
   name: 'name',
   qty: 'qty',
-  price: 'price'
+  price: 'price',
+  userid: 'userid'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -188,7 +195,8 @@ export const OrderProductScalarFieldEnum = {
   orderid: 'orderid',
   qty: 'qty',
   price: 'price',
-  total: 'total'
+  total: 'total',
+  userid: 'userid'
 } as const
 
 export type OrderProductScalarFieldEnum = (typeof OrderProductScalarFieldEnum)[keyof typeof OrderProductScalarFieldEnum]
@@ -200,7 +208,8 @@ export const ScheduleScalarFieldEnum = {
   serviceid: 'serviceid',
   barberid: 'barberid',
   start: 'start',
-  end: 'end'
+  end: 'end',
+  userid: 'userid'
 } as const
 
 export type ScheduleScalarFieldEnum = (typeof ScheduleScalarFieldEnum)[keyof typeof ScheduleScalarFieldEnum]

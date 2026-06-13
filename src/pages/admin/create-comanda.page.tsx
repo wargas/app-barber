@@ -43,11 +43,11 @@ export function Component() {
 
     const queryMethods = api.paymentsMethods.list.useQuery()
 
-    const valorTotal = sumBy(services, `price`)+sumBy(products, `total`);
+    const valorTotal = sumBy(services, `price`) + sumBy(products, `total`);
 
     const paymentsPrev = form.watch(`payment`)
 
-    const valorPago = sumBy(payments, `value`)+sumBy(paymentsPrev, `value`);
+    const valorPago = sumBy(payments, `value`) + sumBy(paymentsPrev, `value`);
 
     const { mutateAsync: deleteProduct } = api.orders.deleteProduct.useMutation()
     const { mutateAsync: deleteService } = api.orders.deleteService.useMutation()
@@ -96,10 +96,18 @@ export function Component() {
     }
 
     async function handleDeleteOrder() {
-        if(confirm("Deseja realmente excluir a comanda?")) {
-            await deleteOrder(params.id!)
+        if (confirm("Deseja realmente excluir a comanda?")) {
 
-            redirect('/comandas')
+            toast.promise(deleteOrder(params.id!), {
+                loading: "Excluindo comanda",
+                success: data => {
+
+                    navigate('/comandas')
+
+                    return "Comanda excluida com sucesso"
+                }
+            })
+
         }
     }
 
@@ -134,9 +142,9 @@ export function Component() {
                     <TabsTrigger className="flex-1" value="services">Serviços ({sumBy(services, `price`).toCurrency()})</TabsTrigger>
                     <TabsTrigger className="flex-1" value="products">Produtos ({sumBy(products, `total`).toCurrency()})</TabsTrigger>
                     <TabsTrigger className="flex-1" value="payment">
-                        Pagamento 
-                        {valorPago>0 && valorPago == valorTotal && <Badge className="bg-green-700 h-4 text-xs">OK</Badge>}
-                        {valorTotal > valorPago && <Badge className="bg-yellow-300" variant={`ghost`}>Falta {(valorTotal-valorPago).toCurrency()}</Badge>}
+                        Pagamento
+                        {valorPago > 0 && valorPago == valorTotal && <Badge className="bg-green-700 h-4 text-xs">OK</Badge>}
+                        {valorTotal > valorPago && <Badge className="bg-yellow-300" variant={`ghost`}>Falta {(valorTotal - valorPago).toCurrency()}</Badge>}
                     </TabsTrigger>
                 </TabsList>
 
@@ -179,7 +187,7 @@ export function Component() {
                         </CardContent>
                     </Card>
                 </TabsContent>
-                
+
                 <TabsContent value="products">
                     <Card className="col-span-4">
                         <CardHeader className="border-b">
@@ -209,9 +217,9 @@ export function Component() {
                                             <TableCell>{(item.qty * item.product.price).toCurrency()}</TableCell>
                                             <TableCell>
                                                 <div className="flex">
-                                                <Button className="ml-auto" onClick={() => deleteProductHandle(item.id)} variant={`outline`} size={`icon-xs`}>
-                                                    <Trash2 />
-                                                </Button>
+                                                    <Button className="ml-auto" onClick={() => deleteProductHandle(item.id)} variant={`outline`} size={`icon-xs`}>
+                                                        <Trash2 />
+                                                    </Button>
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -300,7 +308,7 @@ export function Component() {
 
                 </div>
                 <Button type="button" variant={'secondary'} onClick={handleDeleteOrder}>Cancelar comanda</Button>
-                <Button disabled={ valorPago != valorTotal || query.data?.done} onClick={form.handleSubmit(submitHandle)}>
+                <Button disabled={valorPago != valorTotal || query.data?.done} onClick={form.handleSubmit(submitHandle)}>
                     {form.formState.isSubmitting ? <Spinner /> : <Check />}
                     Finalizar comanda</Button>
             </div>

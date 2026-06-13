@@ -2,13 +2,14 @@ import { db } from "@/lib/db";
 import { protectedProcedure, router } from "../trpc";
 
 export const dashboardRouter = router({
-    totais: protectedProcedure.query(async() => {
+    totais: protectedProcedure.query(async ({ ctx }) => {
 
-        const barbers = await db.barber.count()
-        const services = await db.service.count()
+        const barbers = await db.barber.count({ where: { userid: ctx.userId } })
+        const services = await db.service.count({ where: { userid: ctx.userId } })
         const orders = await db.order.aggregate({
-            _count: { id: true},
-            _sum: { total: true}
+            where: { userid: ctx.userId },
+            _count: { id: true },
+            _sum: { total: true }
         })
 
         return {

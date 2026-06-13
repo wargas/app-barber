@@ -41,6 +41,7 @@ export type OrderPaymentMinAggregateOutputType = {
   methodId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userid: string | null
 }
 
 export type OrderPaymentMaxAggregateOutputType = {
@@ -50,6 +51,7 @@ export type OrderPaymentMaxAggregateOutputType = {
   methodId: string | null
   createdAt: Date | null
   updatedAt: Date | null
+  userid: string | null
 }
 
 export type OrderPaymentCountAggregateOutputType = {
@@ -59,6 +61,7 @@ export type OrderPaymentCountAggregateOutputType = {
   methodId: number
   createdAt: number
   updatedAt: number
+  userid: number
   _all: number
 }
 
@@ -78,6 +81,7 @@ export type OrderPaymentMinAggregateInputType = {
   methodId?: true
   createdAt?: true
   updatedAt?: true
+  userid?: true
 }
 
 export type OrderPaymentMaxAggregateInputType = {
@@ -87,6 +91,7 @@ export type OrderPaymentMaxAggregateInputType = {
   methodId?: true
   createdAt?: true
   updatedAt?: true
+  userid?: true
 }
 
 export type OrderPaymentCountAggregateInputType = {
@@ -96,6 +101,7 @@ export type OrderPaymentCountAggregateInputType = {
   methodId?: true
   createdAt?: true
   updatedAt?: true
+  userid?: true
   _all?: true
 }
 
@@ -192,6 +198,7 @@ export type OrderPaymentGroupByOutputType = {
   methodId: string
   createdAt: Date
   updatedAt: Date
+  userid: string
   _count: OrderPaymentCountAggregateOutputType | null
   _avg: OrderPaymentAvgAggregateOutputType | null
   _sum: OrderPaymentSumAggregateOutputType | null
@@ -224,8 +231,10 @@ export type OrderPaymentWhereInput = {
   methodId?: Prisma.StringFilter<"OrderPayment"> | string
   createdAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
+  userid?: Prisma.StringFilter<"OrderPayment"> | string
   method?: Prisma.XOR<Prisma.PaymentMethodsScalarRelationFilter, Prisma.PaymentMethodsWhereInput>
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type OrderPaymentOrderByWithRelationInput = {
@@ -235,8 +244,10 @@ export type OrderPaymentOrderByWithRelationInput = {
   methodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userid?: Prisma.SortOrder
   method?: Prisma.PaymentMethodsOrderByWithRelationInput
   order?: Prisma.OrderOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type OrderPaymentWhereUniqueInput = Prisma.AtLeast<{
@@ -249,8 +260,10 @@ export type OrderPaymentWhereUniqueInput = Prisma.AtLeast<{
   methodId?: Prisma.StringFilter<"OrderPayment"> | string
   createdAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
+  userid?: Prisma.StringFilter<"OrderPayment"> | string
   method?: Prisma.XOR<Prisma.PaymentMethodsScalarRelationFilter, Prisma.PaymentMethodsWhereInput>
   order?: Prisma.XOR<Prisma.OrderScalarRelationFilter, Prisma.OrderWhereInput>
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
 export type OrderPaymentOrderByWithAggregationInput = {
@@ -260,6 +273,7 @@ export type OrderPaymentOrderByWithAggregationInput = {
   methodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userid?: Prisma.SortOrder
   _count?: Prisma.OrderPaymentCountOrderByAggregateInput
   _avg?: Prisma.OrderPaymentAvgOrderByAggregateInput
   _max?: Prisma.OrderPaymentMaxOrderByAggregateInput
@@ -277,6 +291,7 @@ export type OrderPaymentScalarWhereWithAggregatesInput = {
   methodId?: Prisma.StringWithAggregatesFilter<"OrderPayment"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OrderPayment"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"OrderPayment"> | Date | string
+  userid?: Prisma.StringWithAggregatesFilter<"OrderPayment"> | string
 }
 
 export type OrderPaymentCreateInput = {
@@ -286,6 +301,7 @@ export type OrderPaymentCreateInput = {
   updatedAt?: Date | string
   method: Prisma.PaymentMethodsCreateNestedOneWithoutOrderPaymentsInput
   order: Prisma.OrderCreateNestedOneWithoutOrderPaymentsInput
+  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateInput = {
@@ -295,6 +311,7 @@ export type OrderPaymentUncheckedCreateInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentUpdateInput = {
@@ -304,6 +321,7 @@ export type OrderPaymentUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   method?: Prisma.PaymentMethodsUpdateOneRequiredWithoutOrderPaymentsNestedInput
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderPaymentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutOrderPaymentsNestedInput
 }
 
 export type OrderPaymentUncheckedUpdateInput = {
@@ -313,6 +331,7 @@ export type OrderPaymentUncheckedUpdateInput = {
   methodId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrderPaymentCreateManyInput = {
@@ -322,6 +341,7 @@ export type OrderPaymentCreateManyInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentUpdateManyMutationInput = {
@@ -338,6 +358,7 @@ export type OrderPaymentUncheckedUpdateManyInput = {
   methodId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrderPaymentListRelationFilter = {
@@ -357,6 +378,7 @@ export type OrderPaymentCountOrderByAggregateInput = {
   methodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userid?: Prisma.SortOrder
 }
 
 export type OrderPaymentAvgOrderByAggregateInput = {
@@ -370,6 +392,7 @@ export type OrderPaymentMaxOrderByAggregateInput = {
   methodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userid?: Prisma.SortOrder
 }
 
 export type OrderPaymentMinOrderByAggregateInput = {
@@ -379,10 +402,53 @@ export type OrderPaymentMinOrderByAggregateInput = {
   methodId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  userid?: Prisma.SortOrder
 }
 
 export type OrderPaymentSumOrderByAggregateInput = {
   value?: Prisma.SortOrder
+}
+
+export type OrderPaymentCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput> | Prisma.OrderPaymentCreateWithoutUserInput[] | Prisma.OrderPaymentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.OrderPaymentCreateOrConnectWithoutUserInput | Prisma.OrderPaymentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.OrderPaymentCreateManyUserInputEnvelope
+  connect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+}
+
+export type OrderPaymentUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput> | Prisma.OrderPaymentCreateWithoutUserInput[] | Prisma.OrderPaymentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.OrderPaymentCreateOrConnectWithoutUserInput | Prisma.OrderPaymentCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.OrderPaymentCreateManyUserInputEnvelope
+  connect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+}
+
+export type OrderPaymentUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput> | Prisma.OrderPaymentCreateWithoutUserInput[] | Prisma.OrderPaymentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.OrderPaymentCreateOrConnectWithoutUserInput | Prisma.OrderPaymentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.OrderPaymentUpsertWithWhereUniqueWithoutUserInput | Prisma.OrderPaymentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.OrderPaymentCreateManyUserInputEnvelope
+  set?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  disconnect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  delete?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  connect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  update?: Prisma.OrderPaymentUpdateWithWhereUniqueWithoutUserInput | Prisma.OrderPaymentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.OrderPaymentUpdateManyWithWhereWithoutUserInput | Prisma.OrderPaymentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
+}
+
+export type OrderPaymentUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput> | Prisma.OrderPaymentCreateWithoutUserInput[] | Prisma.OrderPaymentUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.OrderPaymentCreateOrConnectWithoutUserInput | Prisma.OrderPaymentCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.OrderPaymentUpsertWithWhereUniqueWithoutUserInput | Prisma.OrderPaymentUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.OrderPaymentCreateManyUserInputEnvelope
+  set?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  disconnect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  delete?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  connect?: Prisma.OrderPaymentWhereUniqueInput | Prisma.OrderPaymentWhereUniqueInput[]
+  update?: Prisma.OrderPaymentUpdateWithWhereUniqueWithoutUserInput | Prisma.OrderPaymentUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.OrderPaymentUpdateManyWithWhereWithoutUserInput | Prisma.OrderPaymentUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
 }
 
 export type OrderPaymentCreateNestedManyWithoutOrderInput = {
@@ -469,12 +535,70 @@ export type OrderPaymentUncheckedUpdateManyWithoutMethodNestedInput = {
   deleteMany?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
 }
 
+export type OrderPaymentCreateWithoutUserInput = {
+  id?: string
+  value: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  method: Prisma.PaymentMethodsCreateNestedOneWithoutOrderPaymentsInput
+  order: Prisma.OrderCreateNestedOneWithoutOrderPaymentsInput
+}
+
+export type OrderPaymentUncheckedCreateWithoutUserInput = {
+  id?: string
+  orderId: string
+  value: number
+  methodId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderPaymentCreateOrConnectWithoutUserInput = {
+  where: Prisma.OrderPaymentWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput>
+}
+
+export type OrderPaymentCreateManyUserInputEnvelope = {
+  data: Prisma.OrderPaymentCreateManyUserInput | Prisma.OrderPaymentCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type OrderPaymentUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.OrderPaymentWhereUniqueInput
+  update: Prisma.XOR<Prisma.OrderPaymentUpdateWithoutUserInput, Prisma.OrderPaymentUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.OrderPaymentCreateWithoutUserInput, Prisma.OrderPaymentUncheckedCreateWithoutUserInput>
+}
+
+export type OrderPaymentUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.OrderPaymentWhereUniqueInput
+  data: Prisma.XOR<Prisma.OrderPaymentUpdateWithoutUserInput, Prisma.OrderPaymentUncheckedUpdateWithoutUserInput>
+}
+
+export type OrderPaymentUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.OrderPaymentScalarWhereInput
+  data: Prisma.XOR<Prisma.OrderPaymentUpdateManyMutationInput, Prisma.OrderPaymentUncheckedUpdateManyWithoutUserInput>
+}
+
+export type OrderPaymentScalarWhereInput = {
+  AND?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
+  OR?: Prisma.OrderPaymentScalarWhereInput[]
+  NOT?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
+  id?: Prisma.StringFilter<"OrderPayment"> | string
+  orderId?: Prisma.StringFilter<"OrderPayment"> | string
+  value?: Prisma.FloatFilter<"OrderPayment"> | number
+  methodId?: Prisma.StringFilter<"OrderPayment"> | string
+  createdAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
+  userid?: Prisma.StringFilter<"OrderPayment"> | string
+}
+
 export type OrderPaymentCreateWithoutOrderInput = {
   id?: string
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
   method: Prisma.PaymentMethodsCreateNestedOneWithoutOrderPaymentsInput
+  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateWithoutOrderInput = {
@@ -483,6 +607,7 @@ export type OrderPaymentUncheckedCreateWithoutOrderInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentCreateOrConnectWithoutOrderInput = {
@@ -511,24 +636,13 @@ export type OrderPaymentUpdateManyWithWhereWithoutOrderInput = {
   data: Prisma.XOR<Prisma.OrderPaymentUpdateManyMutationInput, Prisma.OrderPaymentUncheckedUpdateManyWithoutOrderInput>
 }
 
-export type OrderPaymentScalarWhereInput = {
-  AND?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
-  OR?: Prisma.OrderPaymentScalarWhereInput[]
-  NOT?: Prisma.OrderPaymentScalarWhereInput | Prisma.OrderPaymentScalarWhereInput[]
-  id?: Prisma.StringFilter<"OrderPayment"> | string
-  orderId?: Prisma.StringFilter<"OrderPayment"> | string
-  value?: Prisma.FloatFilter<"OrderPayment"> | number
-  methodId?: Prisma.StringFilter<"OrderPayment"> | string
-  createdAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"OrderPayment"> | Date | string
-}
-
 export type OrderPaymentCreateWithoutMethodInput = {
   id?: string
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutOrderPaymentsInput
+  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateWithoutMethodInput = {
@@ -537,6 +651,7 @@ export type OrderPaymentUncheckedCreateWithoutMethodInput = {
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentCreateOrConnectWithoutMethodInput = {
@@ -565,12 +680,49 @@ export type OrderPaymentUpdateManyWithWhereWithoutMethodInput = {
   data: Prisma.XOR<Prisma.OrderPaymentUpdateManyMutationInput, Prisma.OrderPaymentUncheckedUpdateManyWithoutMethodInput>
 }
 
+export type OrderPaymentCreateManyUserInput = {
+  id?: string
+  orderId: string
+  value: number
+  methodId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type OrderPaymentUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.FloatFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  method?: Prisma.PaymentMethodsUpdateOneRequiredWithoutOrderPaymentsNestedInput
+  order?: Prisma.OrderUpdateOneRequiredWithoutOrderPaymentsNestedInput
+}
+
+export type OrderPaymentUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.FloatFieldUpdateOperationsInput | number
+  methodId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type OrderPaymentUncheckedUpdateManyWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  orderId?: Prisma.StringFieldUpdateOperationsInput | string
+  value?: Prisma.FloatFieldUpdateOperationsInput | number
+  methodId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type OrderPaymentCreateManyOrderInput = {
   id?: string
   value: number
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentUpdateWithoutOrderInput = {
@@ -579,6 +731,7 @@ export type OrderPaymentUpdateWithoutOrderInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   method?: Prisma.PaymentMethodsUpdateOneRequiredWithoutOrderPaymentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutOrderPaymentsNestedInput
 }
 
 export type OrderPaymentUncheckedUpdateWithoutOrderInput = {
@@ -587,6 +740,7 @@ export type OrderPaymentUncheckedUpdateWithoutOrderInput = {
   methodId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrderPaymentUncheckedUpdateManyWithoutOrderInput = {
@@ -595,6 +749,7 @@ export type OrderPaymentUncheckedUpdateManyWithoutOrderInput = {
   methodId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrderPaymentCreateManyMethodInput = {
@@ -603,6 +758,7 @@ export type OrderPaymentCreateManyMethodInput = {
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  userid?: string
 }
 
 export type OrderPaymentUpdateWithoutMethodInput = {
@@ -611,6 +767,7 @@ export type OrderPaymentUpdateWithoutMethodInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutOrderPaymentsNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutOrderPaymentsNestedInput
 }
 
 export type OrderPaymentUncheckedUpdateWithoutMethodInput = {
@@ -619,6 +776,7 @@ export type OrderPaymentUncheckedUpdateWithoutMethodInput = {
   value?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type OrderPaymentUncheckedUpdateManyWithoutMethodInput = {
@@ -627,6 +785,7 @@ export type OrderPaymentUncheckedUpdateManyWithoutMethodInput = {
   value?: Prisma.FloatFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userid?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -638,8 +797,10 @@ export type OrderPaymentSelect<ExtArgs extends runtime.Types.Extensions.Internal
   methodId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userid?: boolean
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderPayment"]>
 
 export type OrderPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -649,8 +810,10 @@ export type OrderPaymentSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   methodId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userid?: boolean
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderPayment"]>
 
 export type OrderPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -660,8 +823,10 @@ export type OrderPaymentSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   methodId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userid?: boolean
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["orderPayment"]>
 
 export type OrderPaymentSelectScalar = {
@@ -671,20 +836,24 @@ export type OrderPaymentSelectScalar = {
   methodId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  userid?: boolean
 }
 
-export type OrderPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "value" | "methodId" | "createdAt" | "updatedAt", ExtArgs["result"]["orderPayment"]>
+export type OrderPaymentOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "value" | "methodId" | "createdAt" | "updatedAt" | "userid", ExtArgs["result"]["orderPayment"]>
 export type OrderPaymentInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type OrderPaymentIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type OrderPaymentIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   method?: boolean | Prisma.PaymentMethodsDefaultArgs<ExtArgs>
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $OrderPaymentPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -692,6 +861,7 @@ export type $OrderPaymentPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     method: Prisma.$PaymentMethodsPayload<ExtArgs>
     order: Prisma.$OrderPayload<ExtArgs>
+    user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -700,6 +870,7 @@ export type $OrderPaymentPayload<ExtArgs extends runtime.Types.Extensions.Intern
     methodId: string
     createdAt: Date
     updatedAt: Date
+    userid: string
   }, ExtArgs["result"]["orderPayment"]>
   composites: {}
 }
@@ -1096,6 +1267,7 @@ export interface Prisma__OrderPaymentClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   method<T extends Prisma.PaymentMethodsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PaymentMethodsDefaultArgs<ExtArgs>>): Prisma.Prisma__PaymentMethodsClient<runtime.Types.Result.GetResult<Prisma.$PaymentMethodsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   order<T extends Prisma.OrderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrderDefaultArgs<ExtArgs>>): Prisma.Prisma__OrderClient<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1131,6 +1303,7 @@ export interface OrderPaymentFieldRefs {
   readonly methodId: Prisma.FieldRef<"OrderPayment", 'String'>
   readonly createdAt: Prisma.FieldRef<"OrderPayment", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"OrderPayment", 'DateTime'>
+  readonly userid: Prisma.FieldRef<"OrderPayment", 'String'>
 }
     
 
