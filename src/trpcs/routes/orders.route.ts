@@ -167,11 +167,23 @@ export const ordersRouter = router({
         })
     }),
     deleteProduct: protectedProcedure.input(z.string()).mutation(async ({ input, ctx }) => {
-        return await db.orderProduct.delete({
-            where: {
-                id: input,
-                userid: ctx.userId
-            }
+        return db.$transaction(async trx => {
+
+            const orderProduct = await db.orderProduct.findFirst({ where: { id: input }, include: { product: true } })
+
+            if (!orderProduct) return null;
+
+            await db.product.update({
+                where: { id: orderProduct.productid },
+                data: { qty: orderProduct.product.qty + orderProduct.qty }
+            })
+
+            return await db.orderProduct.delete({
+                where: {
+                    id: input,
+                    userid: ctx.userId
+                }
+            })
         })
     }),
     addProduct: protectedProcedure.input(z.object({ orderId: z.string(), productId: z.string(), qty: z.number() }))
@@ -183,29 +195,39 @@ export const ordersRouter = router({
 
             const prevProduct = order.orderProducts.find(op => op.productid == product.id)
 
-            if (prevProduct) {
-                return await db.orderProduct.update({
-                    where: {
-                        id: prevProduct.id,
-                        userid: ctx.userId
-                    },
+            return await db.$transaction(async trx => {
+
+                await trx.product.update({
+                    where: { id: product.id, userid: ctx.userId },
+                    data: { qty: product.qty - input.qty }
+                })
+
+                if (prevProduct) {
+                    return await trx.orderProduct.update({
+                        where: {
+                            id: prevProduct.id,
+                            userid: ctx.userId
+                        },
+                        data: {
+                            qty: prevProduct.qty + input.qty,
+                            total: (prevProduct.qty + input.qty) * product.price
+                        }
+                    })
+                }
+
+                return await trx.orderProduct.create({
                     data: {
-                        qty: prevProduct.qty + input.qty,
-                        total: (prevProduct.qty + input.qty) * product.price
+                        orderid: input.orderId,
+                        productid: input.productId,
+                        qty: input.qty,
+                        price: product.price,
+                        total: input.qty * product.price,
+                        userid: ctx.userId
                     }
                 })
-            }
-
-            return await db.orderProduct.create({
-                data: {
-                    orderid: input.orderId,
-                    productid: input.productId,
-                    qty: input.qty,
-                    price: product.price,
-                    total: input.qty * product.price,
-                    userid: ctx.userId
-                }
             })
+
+
         })
 
 })
