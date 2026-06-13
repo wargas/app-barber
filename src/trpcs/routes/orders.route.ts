@@ -53,7 +53,11 @@ export const ordersRouter = router({
                     orderProducts: {
                         include: { product: true }
                     },
-                    orderPayments: true
+                    orderPayments: {
+                        include: {
+                            method: true
+                        }
+                    }
                 }
             })
         }),
@@ -61,7 +65,14 @@ export const ordersRouter = router({
         .input(z.string())
         .mutation(async ({ input }) => {
 
-            return await db.order.delete({ where: { id: input } })
+            return await db.$transaction(async trx => {
+                await trx.orderProduct.deleteMany({ where: { orderid: input } });
+                await trx.orderProduct.deleteMany({ where: { orderid: input } });
+                await trx.orderPayment.deleteMany({ where: { orderId: input } });
+
+                return await db.order.delete({ where: { id: input } })
+            })
+
         }),
     create: protectedProcedure
         .input(z.object({
@@ -96,7 +107,7 @@ export const ordersRouter = router({
                 throw new TRPCError({ code: 'NOT_FOUND' })
             }
 
-            const total = sumBy(order.orderServices, 'price')+sumBy(order.orderProducts, `total`)
+            const total = sumBy(order.orderServices, 'price') + sumBy(order.orderProducts, `total`)
 
             const totalPago = sumBy(opts.input.payment, 'value')
 
@@ -157,13 +168,13 @@ export const ordersRouter = router({
     addProduct: protectedProcedure.input(z.object({ orderId: z.string(), productId: z.string(), qty: z.number() }))
         .mutation(async ({ input }) => {
             const order = await db.order.findFirst({ where: { id: input.orderId }, include: { orderProducts: true } })
-            const product = await db.product.findFirst({where: {id: input.productId}})
+            const product = await db.product.findFirst({ where: { id: input.productId } })
 
-            if(!product || !order) return null;
+            if (!product || !order) return null;
 
             const prevProduct = order.orderProducts.find(op => op.productid == product.id)
 
-            if(prevProduct) {
+            if (prevProduct) {
                 return await db.orderProduct.update({
                     where: {
                         id: prevProduct.id

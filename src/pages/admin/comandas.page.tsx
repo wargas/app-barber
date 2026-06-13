@@ -1,3 +1,4 @@
+import { modal } from "@/components/modal"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
@@ -6,10 +7,14 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { api } from "@/lib/api"
+import { FormComanda } from "@/modals/form-comanda"
 import { formatDate } from 'date-fns'
-import { Search } from "lucide-react"
+import type { size } from "lodash"
+import { Plus, Search, Trash } from "lucide-react"
 import { useMemo } from "react"
 import { useLocation, useNavigate } from "react-router"
+import { toast } from "sonner"
+import { success } from "zod"
 
 export const handle = { title: 'Comandas' }
 
@@ -17,6 +22,9 @@ export function Component() {
     const navigate = useNavigate()
 
     const locate = useLocation()
+
+    const { mutateAsync: deleteOrder } = api.orders.delete.useMutation()
+
 
     const searchData = useMemo(() => {
         const search = new URLSearchParams(locate.search)
@@ -53,6 +61,26 @@ export function Component() {
         navigate(`/comandas?${search.toString()}`)
     }
 
+    async function criarComanda() {
+        await modal(FormComanda, { title: 'Nova comanda' })
+    }
+
+    async function handleDeleteOrder(id: string) {
+        if (confirm("Deseja realmente excluir a comanda?")) {
+
+            toast.promise(deleteOrder(id!), {
+                loading: "Excluindo comanda",
+                success: (data) => {
+                    query.refetch()
+                    return `Comanda excluida com sucesso`
+                },
+            }
+            )
+
+
+        }
+    }
+
     return (
         <div className="p-4">
 
@@ -67,6 +95,7 @@ export function Component() {
                                 <ToggleGroupItem value="fechadas">Fechadas</ToggleGroupItem>
                                 <ToggleGroupItem value="todas">Todas</ToggleGroupItem>
                             </ToggleGroup>
+                            <Button onClick={criarComanda}><Plus />Nova Comanda</Button>
                         </div>
                     </CardAction>
                 </CardHeader>
@@ -95,9 +124,14 @@ export function Component() {
                                     <TableCell>{item.total.toCurrency()}</TableCell>
                                     <TableCell>{item.done ? 'FECHADA' : 'ABERTA'}</TableCell>
                                     <TableCell>
-                                        <Button onClick={() => navigate(`/comandas/${item.id}`)} variant={'outline'} size={'icon-sm'}>
-                                            <Search />
-                                        </Button>
+                                        <div className="flex justify-end gap-2">
+                                            <Button onClick={() => navigate(`/comandas/${item.id}`)} variant={'outline'} size={'icon-sm'}>
+                                                <Search />
+                                            </Button>
+                                            <Button onClick={() => handleDeleteOrder(item.id)} variant={`outline`} size={`icon-sm`}>
+                                                <Trash />
+                                            </Button>
+                                        </div>
                                     </TableCell>
                                 </TableRow>
                             ))}

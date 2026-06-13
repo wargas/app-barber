@@ -1,5 +1,6 @@
 import { InputMoney } from "@/components/input-money"
 import { modal } from "@/components/modal"
+import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Field, FieldLabel } from "@/components/ui/field"
@@ -14,10 +15,10 @@ import { FormOrderProduct } from "@/modals/form-order-product"
 import { FormOrderService } from "@/modals/form-order-service"
 import type { RouterInput } from "@/types"
 import { sumBy } from "lodash"
-import { Plus, Trash2 } from "lucide-react"
+import { Check, Plus, Trash2 } from "lucide-react"
 import { useEffect } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
-import { useNavigate, useParams } from "react-router"
+import { redirect, useNavigate, useParams } from "react-router"
 import { toast } from "sonner"
 
 type Input = RouterInput['orders']['close']
@@ -38,11 +39,19 @@ export function Component() {
     const query = api.orders.show.useQuery(params.id!)
     const services = query.data?.orderServices || []
     const products = query.data?.orderProducts || []
+    const payments = query.data?.orderPayments || []
 
     const queryMethods = api.paymentsMethods.list.useQuery()
 
+    const valorTotal = sumBy(services, `price`)+sumBy(products, `total`);
+
+    const paymentsPrev = form.watch(`payment`)
+
+    const valorPago = sumBy(payments, `value`)+sumBy(paymentsPrev, `value`);
+
     const { mutateAsync: deleteProduct } = api.orders.deleteProduct.useMutation()
     const { mutateAsync: deleteService } = api.orders.deleteService.useMutation()
+    const { mutateAsync: deleteOrder } = api.orders.delete.useMutation()
     const { mutateAsync: closeOrder } = api.orders.close.useMutation({
         onError(error) {
             toast.error(error.message)
@@ -86,6 +95,14 @@ export function Component() {
         }
     }
 
+    async function handleDeleteOrder() {
+        if(confirm("Deseja realmente excluir a comanda?")) {
+            await deleteOrder(params.id!)
+
+            redirect('/comandas')
+        }
+    }
+
     useEffect(() => {
         if (fieldsPayment.fields.length == 0) {
             fieldsPayment.append({ methodId: '', value: 0 })
@@ -109,21 +126,25 @@ export function Component() {
                 </Field>
             </div>
 
+
             <Separator />
 
             <Tabs defaultValue="services" className="w-full">
                 <TabsList className="w-full">
                     <TabsTrigger className="flex-1" value="services">Serviços ({sumBy(services, `price`).toCurrency()})</TabsTrigger>
                     <TabsTrigger className="flex-1" value="products">Produtos ({sumBy(products, `total`).toCurrency()})</TabsTrigger>
-                    <TabsTrigger className="flex-1" value="payment">Pagamento</TabsTrigger>
+                    <TabsTrigger className="flex-1" value="payment">
+                        Pagamento 
+                        {valorPago>0 && valorPago == valorTotal && <Badge className="bg-green-700 h-4 text-xs">OK</Badge>}
+                        {valorTotal > valorPago && <Badge className="bg-yellow-300" variant={`ghost`}>Falta {(valorTotal-valorPago).toCurrency()}</Badge>}
+                    </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="services">
                     <Card className="col-span-4">
                         <CardHeader className="border-b">
-
                             <CardAction>
-                                <Button onClick={addService} size={'sm'}>
+                                <Button variant={`outline`} onClick={addService} size={'sm'}>
                                     <Plus /> adicionar
                                 </Button>
                             </CardAction>
@@ -145,9 +166,11 @@ export function Component() {
                                             <TableCell>{item.barber.name}</TableCell>
                                             <TableCell>{item.price.toCurrency()}</TableCell>
                                             <TableCell>
-                                                <Button onClick={() => deleteServiceHandle(item.id)} variant={'ghost'} size={'icon-sm'}>
-                                                    <Trash2 />
-                                                </Button>
+                                                <div className="flex">
+                                                    <Button className="ml-auto" onClick={() => deleteServiceHandle(item.id)} variant={'outline'} size={'icon-sm'}>
+                                                        <Trash2 />
+                                                    </Button>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -156,58 +179,12 @@ export function Component() {
                         </CardContent>
                     </Card>
                 </TabsContent>
-                <TabsContent value="payment">
-                    <Card className="col-span-2 row-span-2">
-                        <CardHeader>
-                            <CardTitle>Pagamento</CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            <Table>
-                                <TableHeader>
-                                    <TableRow>
-                                        <TableHead>Metodo</TableHead>
-                                        <TableHead>Valor</TableHead>
-                                        <TableHead></TableHead>
-                                    </TableRow>
-                                </TableHeader>
-                                <TableBody>
-                                    {fieldsPayment.fields.map((field, index) => (
-                                        <TableRow key={index}>
-                                            <TableCell>
-                                                <Select onValueChange={v => form.setValue(`payment.${index}.methodId`, v)}>
-                                                    <SelectTrigger>
-                                                        <SelectValue placeholder="Selecione" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="credito">Selecione</SelectItem>
-                                                        {queryMethods.data?.map(item => (
-                                                            <SelectItem value={item.id}>{item.name}</SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                            </TableCell>
-                                            <TableCell>
-                                                <InputMoney onChangeValue={e => form.setValue(`payment.${index}.value`, e)} />
-                                            </TableCell>
-                                            <TableCell>
-                                                <Button onClick={() => fieldsPayment.remove(index)} variant={'outline'}>-</Button>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                            <div className="flex justify-center">
-                                <Button variant={'secondary'} onClick={() => fieldsPayment.append({ methodId: '', value: 0 })}>adicionar</Button>
-                            </div>
-
-                        </CardContent>
-                    </Card>
-                </TabsContent>
+                
                 <TabsContent value="products">
                     <Card className="col-span-4">
                         <CardHeader className="border-b">
                             <CardAction>
-                                <Button onClick={addProduct} size={'sm'}>
+                                <Button variant={`outline`} onClick={addProduct} size={'sm'}>
                                     <Plus /> adicionar
                                 </Button>
                             </CardAction>
@@ -231,9 +208,11 @@ export function Component() {
                                             <TableCell>{item.product.price.toCurrency()}</TableCell>
                                             <TableCell>{(item.qty * item.product.price).toCurrency()}</TableCell>
                                             <TableCell>
-                                                <Button onClick={() => deleteProductHandle(item.id)} variant={`ghost`} size={`icon-xs`}>
+                                                <div className="flex">
+                                                <Button className="ml-auto" onClick={() => deleteProductHandle(item.id)} variant={`outline`} size={`icon-xs`}>
                                                     <Trash2 />
                                                 </Button>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -243,6 +222,71 @@ export function Component() {
                     </Card>
                 </TabsContent>
 
+                <TabsContent value="payment">
+                    <Card className="col-span-2 row-span-2">
+                        {/* <CardHeader>
+                            <CardTitle>Pagamento</CardTitle>
+                        </CardHeader> */}
+                        <CardContent className="p-0">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Metodo</TableHead>
+                                        <TableHead>Valor</TableHead>
+                                        <TableHead></TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody >
+                                    {payments.map(item => (
+                                        <TableRow>
+                                            <TableCell>{item.method.name}</TableCell>
+                                            <TableCell>{item.value.toCurrency()}</TableCell>
+                                            <TableCell>
+                                                <div className="flex">
+                                                    <Button variant={`outline`} size={`icon-sm`} className="ml-auto">
+                                                        <Trash2 />
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+
+                                    {fieldsPayment.fields.map((field, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>
+                                                <Select onValueChange={v => form.setValue(`payment.${index}.methodId`, v)}>
+                                                    <SelectTrigger>
+                                                        <SelectValue placeholder="Selecione" />
+                                                    </SelectTrigger>
+                                                    <SelectContent>
+                                                        <SelectItem value="credito">Selecione</SelectItem>
+                                                        {queryMethods.data?.map(item => (
+                                                            <SelectItem value={item.id}>{item.name}</SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                            </TableCell>
+                                            <TableCell>
+                                                <InputMoney className="max-w-44" onChangeValue={e => form.setValue(`payment.${index}.value`, e)} />
+                                            </TableCell>
+                                            <TableCell>
+                                                <div className="flex">
+                                                    <Button className="ml-auto" onClick={() => fieldsPayment.remove(index)} variant={'outline'} size={`icon-sm`}>
+                                                        <Trash2 />
+                                                    </Button>
+                                                </div>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                            <div className="flex justify-center">
+                                <Button variant={'secondary'} onClick={() => fieldsPayment.append({ methodId: '', value: 0 })}>adicionar</Button>
+                            </div>
+
+                        </CardContent>
+                    </Card>
+                </TabsContent>
             </Tabs>
 
 
@@ -253,11 +297,11 @@ export function Component() {
 
             <div className="flex gap-4 col-span-6">
                 <div className="flex-1 flex gap-4">
-                    
+
                 </div>
-                <Button variant={'secondary'} onClick={form.handleSubmit(submitHandle)}>Cancelar comanda</Button>
-                <Button onClick={form.handleSubmit(submitHandle)}>
-                    {form.formState.isSubmitting && <Spinner />}
+                <Button type="button" variant={'secondary'} onClick={handleDeleteOrder}>Cancelar comanda</Button>
+                <Button disabled={ valorPago != valorTotal || query.data?.done} onClick={form.handleSubmit(submitHandle)}>
+                    {form.formState.isSubmitting ? <Spinner /> : <Check />}
                     Finalizar comanda</Button>
             </div>
 
