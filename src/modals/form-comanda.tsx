@@ -1,9 +1,8 @@
 import { useModal } from "@/components/modal/hook-modal";
 import { Button } from "@/components/ui/button";
+import { Combobox, ComboboxContent, ComboboxEmpty, ComboboxInput, ComboboxItem, ComboboxList, ComboboxTrigger, ComboboxValue } from "@/components/ui/combobox";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { api } from "@/lib/api";
 import type { RouterInput } from "@/types";
@@ -23,6 +22,7 @@ export function FormComanda() {
     const form = useForm<InputOrder>()
 
     async function handleSubmit(data: InputOrder) {
+        if (!data.custumerId) return;
         const response = await mutation.mutateAsync(data);
 
         close(true)
@@ -34,16 +34,17 @@ export function FormComanda() {
         <div className="flex flex-col gap-4 p-4">
             <Field>
                 <FieldLabel>Cliente</FieldLabel>
-                <Select onValueChange={v => form.setValue('custumerId', v)}>
-                    <SelectTrigger>
-                        <SelectValue placeholder="Cliente" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        {queryClients.data?.map(item => (
-                            <SelectItem value={item.id}>{item.name}</SelectItem>
-                        ))}
-                    </SelectContent>
-                </Select>
+                <Combobox autoHighlight items={queryClients.data} onValueChange={(v: any) => form.setValue(`custumerId`, v?.id)} itemToStringValue={(i: any) => i?.id} itemToStringLabel={(i: any) => i?.name}>
+                    <ComboboxInput placeholder="Selecione um cliente" showClear showTrigger />
+                    <ComboboxContent>
+                        <ComboboxEmpty>Nenhum cliente encontrado</ComboboxEmpty>
+                        <ComboboxList>
+                            {(item: any) => (
+                                <ComboboxItem key={item.id} value={item}>{item.name.trim()}</ComboboxItem>
+                            )}
+                        </ComboboxList>
+                    </ComboboxContent>
+                </Combobox>
             </Field>
         </div>
         <DrawerFooter>
