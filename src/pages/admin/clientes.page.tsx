@@ -73,6 +73,7 @@ export function Component() {
                         <TableHeader>
                             <TableRow>
                                 <TableHead>Nome</TableHead>
+                                <TableHead>Data Cadastro</TableHead>
                                 <TableHead></TableHead>
                             </TableRow>
 
@@ -81,6 +82,7 @@ export function Component() {
                             {query.data?.data?.map(item => (
                                 <TableRow key={item.id}>
                                     <TableCell>{item.name}</TableCell>
+                                    <TableCell>{item.createdAt.toLocaleDateString()}</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
                                             <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>

@@ -17,7 +17,7 @@ import {
 import { NavUser } from "@/components/nav-user";
 import { IconCirclePlusFilled, IconDashboard, IconInnerShadowTop, IconMail } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { PersonStanding, ScissorsIcon, ShoppingBag, ShoppingBasket, User2, UserCheck, UserCircle } from "lucide-react";
+import { LucideWatch, PersonStanding, ScissorsIcon, ShoppingBag, ShoppingBasket, User2, UserCheck, UserCircle } from "lucide-react";
 import { modal } from "@/components/modal";
 import { FormComanda } from "@/modals/form-comanda";
 import { SiteHeader } from "@/components/site-header";
@@ -154,7 +154,7 @@ export function Component() {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton tooltip="agendaß" asChild>
                                         <Link to={'/agenda'}>
-                                            <ShoppingBasket />
+                                            <LucideWatch />
                                             <span>Agendamentos</span>
                                         </Link>
                                     </SidebarMenuButton>
