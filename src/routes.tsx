@@ -1,4 +1,4 @@
-import type { RouteObject } from "react-router";
+import { Navigate, type RouteObject } from "react-router";
 import { authMiddleware } from "./lib/auth-middleware";
 
 export const routes = [
@@ -11,6 +11,10 @@ export const routes = [
                 lazy: () => import('@/pages/admin/layout'),
                 middleware: [authMiddleware],
                 children: [
+                    {
+                        path: `/`,
+                        element: <Navigate to={`/dashboard`} />
+                    },
                     {
                         path: '/dashboard',
                         lazy: () => import('@/pages/admin/dashboard.page'),
