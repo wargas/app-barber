@@ -12,6 +12,8 @@ export const dashboardRouter = router({
         const startDate = subHours(startOfDay(parse(input.start, `yyyy-MM-dd`, new Date())), 3)
         const endDate = subHours(endOfDay(parse(input.end, `yyyy-MM-dd`, new Date())), 3)
 
+        console.log({startDate, endDate})
+
         const barbers = await db.barber.count({ where: { userid: ctx.userId } })
         const services = await db.service.count({ where: { userid: ctx.userId } })
         const orders = await db.order.aggregate({
@@ -45,8 +47,8 @@ export const dashboardRouter = router({
             const orders = await db.order.findMany({
                 where: {
                     createdAt: {
-                        gte: first(dates),
-                        lte: last(dates)
+                        gte: startOfDay(addHours(first(dates)!, 3)),
+                        lte: endOfDay(addHours(last(dates)!, 3))
                     },
                     userid: ctx.userId
                 },
