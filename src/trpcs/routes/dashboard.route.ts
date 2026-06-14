@@ -9,10 +9,10 @@ export const dashboardRouter = router({
         .input(z.object({start:z.string(), end: z.string()}))
         .query(async ({ ctx, input }) => {
 
-        const startDate = subHours(startOfDay(parse(input.start, `yyyy-MM-dd`, new Date())), 3)
-        const endDate = subHours(endOfDay(parse(input.end, `yyyy-MM-dd`, new Date())), 3)
+        const startDate = startOfDay(parse(input.start, `yyyy-MM-dd`, new Date()))
+        const endDate = endOfDay(parse(input.end, `yyyy-MM-dd`, new Date()))
 
-        console.log({startDate, endDate})
+        console.log({startDate, endDate}, new Date().getHours())
 
         const barbers = await db.barber.count({ where: { userid: ctx.userId } })
         const services = await db.service.count({ where: { userid: ctx.userId } })
@@ -47,8 +47,8 @@ export const dashboardRouter = router({
             const orders = await db.order.findMany({
                 where: {
                     createdAt: {
-                        gte: startOfDay(addHours(first(dates)!, 3)),
-                        lte: endOfDay(addHours(last(dates)!, 3))
+                        gte: startOfDay(first(dates)!),
+                        lte: endOfDay(last(dates)!)
                     },
                     userid: ctx.userId
                 },
