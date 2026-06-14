@@ -22,6 +22,7 @@ import { modal } from "@/components/modal";
 import { FormComanda } from "@/modals/form-comanda";
 import { SiteHeader } from "@/components/site-header";
 import _ from "lodash";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
 
 
 export function Component() {
@@ -67,20 +68,16 @@ export function Component() {
             }
         >
             <Sidebar collapsible="offcanvas">
-                <SidebarHeader>
-                    <SidebarMenu>
-                        <SidebarMenuItem>
-                            <SidebarMenuButton
-                                asChild
-                                className="data-[slot=sidebar-menu-button]:p-1.5!"
-                            >
-                                <button >
-                                    <IconInnerShadowTop className="size-5!" />
-                                    <span className="text-base font-semibold">Barbearia</span>
-                                </button>
-                            </SidebarMenuButton>
-                        </SidebarMenuItem>
-                    </SidebarMenu>
+                <SidebarHeader className="border-b bg-background">
+                    <Item size={`sm`}>
+                        <ItemMedia>
+                            <img className="w-8" src="https://fino-barbearia-sys.lovable.app/assets/logo-andre-barbearia-Ca6LAyk_.jpeg" alt=""  />
+                        </ItemMedia>
+                        <ItemContent>
+                            <ItemTitle>ANDRE</ItemTitle>
+                            <ItemDescription>Barbearia</ItemDescription>
+                        </ItemContent>
+                    </Item>
                 </SidebarHeader>
                 <SidebarContent>
                     <SidebarGroup>
@@ -96,14 +93,7 @@ export function Component() {
                                             <span>COMANDA</span>
                                         </button>
                                     </SidebarMenuButton>
-                                    {/* <Button
-                                        size="icon"
-                                        className="size-8 group-data-[collapsible=icon]:opacity-0"
-                                        variant="outline"
-                                    >
-                                        <IconMail />
-                                        <span className="sr-only">Inbox</span>
-                                    </Button> */}
+                                    
                                 </SidebarMenuItem>
                             </SidebarMenu>
                             <SidebarMenu>
