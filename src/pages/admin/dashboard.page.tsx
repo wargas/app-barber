@@ -110,7 +110,6 @@ export function Component() {
     return (
         <div className="grid grid-cols-4 gap-4 p-4">
             <div className="col-span-4 flex justify-between">
-                <Button onClick={() => confirme(`Quer fazer isso mesmo`).then(console.log)}>TESTE</Button>
                 <ButtonGroup>
                     <Button onClick={handlePrev} variant={`outline`}><ChevronLeft /></Button>
                     <Button onClick={handleNext} variant={`outline`}><ChevronRight /></Button>
