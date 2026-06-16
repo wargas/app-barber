@@ -1,3 +1,4 @@
+import { confirme } from "@/components/dialog-confirme";
 import { modal } from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +32,7 @@ export function Component() {
 
     async function handleDelete(id:string) {
 
-        if(confirm("Confirma a exclusão do cliente")) {
+        if(await confirme("Confirma a exclusão do profissional")) {
             
              deleteMutation(id).then(async () => {
                 toast("Excluido com sucesso")

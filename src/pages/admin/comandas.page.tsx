@@ -1,3 +1,4 @@
+import { confirme } from "@/components/dialog-confirme"
 import { modal } from "@/components/modal"
 import { SiteHeader } from "@/components/site-header"
 import { Button } from "@/components/ui/button"
@@ -66,7 +67,7 @@ export function Component() {
     }
 
     async function handleDeleteOrder(id: string) {
-        if (confirm("Deseja realmente excluir a comanda?")) {
+        if (await confirme("Deseja realmente excluir a comanda?")) {
 
             toast.promise(deleteOrder(id!), {
                 loading: "Excluindo comanda",

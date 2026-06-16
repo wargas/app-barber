@@ -1,4 +1,5 @@
 import { ChartLastDays } from "@/components/chart-lastdays";
+import { confirme } from "@/components/dialog-confirme";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -109,6 +110,7 @@ export function Component() {
     return (
         <div className="grid grid-cols-4 gap-4 p-4">
             <div className="col-span-4 flex justify-between">
+                <Button onClick={() => confirme(`Quer fazer isso mesmo`).then(console.log)}>TESTE</Button>
                 <ButtonGroup>
                     <Button onClick={handlePrev} variant={`outline`}><ChevronLeft /></Button>
                     <Button onClick={handleNext} variant={`outline`}><ChevronRight /></Button>
