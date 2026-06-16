@@ -9,11 +9,17 @@ export const DialogConfirm = () => {
     const [open, setOpen] = useState(false)
 
     useEffect(() => {
-        EventManager.on(`add-confirme`, (args:any) => {
+        const handler = (args: any) => {
             setMessage(args.message)
             setId(args.id)
             setOpen(true)
-        })
+          }
+      
+          EventManager.on("add-confirme", handler)
+      
+          return () => {
+            EventManager.off("add-confirme", handler)
+          }
     }, [id, message])
 
     function handleClose(result:boolean) {
@@ -47,3 +53,4 @@ export function confirme(message: string) {
         })
     })
 }
+
