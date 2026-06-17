@@ -14,13 +14,9 @@ export const ordersRouter = router({
         }))
         .query(async ({ input: { start, end, status }, ctx }) => {
 
-            console.log(ctx)
-
             const startDate = startOfDay(parse(start, 'yyyy-MM-dd', new Date()))
 
             const endDate = endOfDay(parse(end, 'yyyy-MM-dd', new Date()));
-
-            console.log({ startDate, endDate })
 
             return await db.order.findMany({
                 where: {
@@ -31,12 +27,39 @@ export const ordersRouter = router({
                     },
                     userid: ctx.userId
                 },
+                orderBy: { createdAt: `desc` },
                 include: {
-                    custumer: true, orderServices: {
-                        include: { service: true }
-                    }
+                    custumer: true,
+                    orderServices: {
+                        include: { service: true, barber: true }
+                    },
+                    orderProducts: { include: { product: true } }
                 }
             });
+        }),
+    listOrderSevices: protectedProcedure
+        .input(z.object({
+            start: z.string(),
+            end: z.string(),
+            barberId: z.string().optional(),
+            serviceId: z.string().optional()
+        }))
+        .query(async ({ ctx, input }) => {
+            const data = await db.orderService.findMany({
+                where: {
+                    userid: ctx.userId,
+                    createdAt: {
+                        gte: startOfDay(parse(input.start, `yyyy-MM-dd`, new Date())),
+                        lte: endOfDay(parse(input.end, `yyyy-MM-dd`, new Date())),
+                    },
+                    ...input.barberId ? { barberId: input.barberId } : {},
+                    ...input.serviceId ? { serviceId: input.serviceId } : {},
+                },
+                orderBy: { createdAt: `desc` },
+                include: { service: true, barber: true, custumer: true }
+            });
+
+            return data;
         }),
     show: protectedProcedure
         .input(z.string())

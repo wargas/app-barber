@@ -49,6 +49,10 @@ export const routes = [
                     {
                         path: '/agenda',
                         lazy: () => import('@/pages/admin/agenda.page')
+                    },
+                    {
+                        path: '/relatorio',
+                        lazy: () => import('@/pages/admin/relatorio.page')
                     }
                 ]
             },
@@ -57,6 +61,10 @@ export const routes = [
                 lazy: () => import('@/pages/login.page')
             }
         ]
+    },
+    {
+        path: `portal`,
+        lazy: () => import("@/pages/portal/page")
     }
 
 ] satisfies RouteObject[]

@@ -11,11 +11,3 @@ export const db = new PrismaClient({
         level: 'query'
     }]
 })
-
-db.$on('query', e => {
-    if(e.query.includes('FROM "public"."orders"')) {
-
-        console.log(e.query);
-        console.log(e.params)
-    }
-})

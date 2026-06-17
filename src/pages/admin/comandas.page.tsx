@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button"
 import { ButtonGroup } from "@/components/ui/button-group"
 import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Item, ItemContent, ItemGroup, ItemMedia, ItemTitle } from "@/components/ui/item"
+import { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger } from "@/components/ui/popover"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import { api } from "@/lib/api"
 import { FormComanda } from "@/modals/form-comanda"
 import { formatDate } from 'date-fns'
-import type { size } from "lodash"
+import { sumBy, type size } from "lodash"
 import { Plus, Search, Trash } from "lucide-react"
 import { useMemo } from "react"
 import { useLocation, useNavigate } from "react-router"
@@ -107,7 +109,8 @@ export function Component() {
                                 <TableHead>Data</TableHead>
                                 <TableHead>Cliente</TableHead>
                                 <TableHead>Serviços</TableHead>
-                                <TableHead>Valor</TableHead>
+                                <TableHead>Produtos</TableHead>
+                                <TableHead>Total</TableHead>
                                 <TableHead>Situação</TableHead>
                                 <TableHead></TableHead>
                             </TableRow>
@@ -115,12 +118,18 @@ export function Component() {
                         <TableBody>
                             {query.data?.map(item => (
                                 <TableRow key={item.id}>
-                                    <TableCell>{formatDate(item.createdAt, 'dd/MM/yyyy hh:mm:ss')}</TableCell>
+                                    <TableCell>{formatDate(item.createdAt, 'dd/MM/yyyy HH:mm:ss')}</TableCell>
                                     <TableCell>{item.custumer?.name}</TableCell>
                                     <TableCell>
-                                        {item.orderServices.map(s => (
+                                        {sumBy(item.orderServices, `price`).toCurrency()}
+
+
+                                    </TableCell>
+                                    <TableCell>
+                                        {sumBy(item.orderProducts, `price`).toCurrency()}
+                                        {/* {item.orderServices.map(s => (
                                             <p key={s.id}>{s.service.name} ({s.price.toCurrency()})</p>
-                                        ))}
+                                        ))} */}
                                     </TableCell>
                                     <TableCell>{item.total.toCurrency()}</TableCell>
                                     <TableCell>{item.done ? 'FECHADA' : 'ABERTA'}</TableCell>
@@ -137,7 +146,7 @@ export function Component() {
                                 </TableRow>
                             ))}
                             <TableRow>
-                                <TableHead colSpan={3}>Total do período</TableHead>
+                                <TableHead colSpan={4}>Total do período</TableHead>
                                 <TableCell>{total?.toCurrency()}</TableCell>
                             </TableRow>
                         </TableBody>

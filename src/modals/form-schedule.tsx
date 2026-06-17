@@ -1,5 +1,6 @@
 import { useModal } from "@/components/modal/hook-modal";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import { DrawerFooter } from "@/components/ui/drawer";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -7,7 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Spinner } from "@/components/ui/spinner";
 import { api } from "@/lib/api";
 import type { InputSchedulesCreate } from "@/types";
+import { addDays, format } from "date-fns";
+import { now, range } from "lodash";
 import { useForm } from "react-hook-form";
+import { ptBR } from "date-fns/locale";
+
 
 type FormInput = {
     client: string,
@@ -35,15 +40,15 @@ export function FormSchedule() {
             client: input.client
         })
 
-        console.log({created})
+        console.log({ created, input })
 
         modal.close(created)
     }
 
     return <>
         <form id="form-schedule" className="p-4 flex flex-col gap-4" onSubmit={form.handleSubmit(handleSubmit)}>
-
-        <Field>
+            
+            <Field>
                 <FieldLabel>Nome do cliente</FieldLabel>
                 <Select>
                     <Input type="text" {...form.register("client")} />
@@ -65,13 +70,25 @@ export function FormSchedule() {
 
             <Field>
                 <FieldLabel>Data</FieldLabel>
-                <Select>
-                    <Input {...form.register("startDate")} defaultValue={`2026-06-11`}  />
+
+                <Select defaultValue={format(now(), `yyyy-MM-dd`)} onValueChange={v => form.setValue("startDate", v)}>
+                    <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Selecione uma data" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {range(0,9).map(i => addDays(now(), i)).map(item => (
+                            <SelectItem key={item.toISOString()} value={format(item, `yyyy-MM-dd`)}>{format(item, `dd/MM/yyyy (EEE)`, {locale:ptBR})}</SelectItem>
+                        ))}
+                    </SelectContent>
                 </Select>
+                
+                    {/* <Input {...form.register("startDate")}  type="date"  /> */}
+                
             </Field>
 
             <Field>
                 <FieldLabel>Hora</FieldLabel>
+
                 <Select>
                     <Input type="time" {...form.register("startTime")} />
                 </Select>
