@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card"
-import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxTrigger, ComboboxValue } from "@/components/ui/combobox"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList } from "@/components/ui/combobox"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
@@ -115,7 +115,6 @@ export function Component() {
                 </form>
             </CardHeader>
             <CardContent>
-
                 <Table>
                     <TableHeader>
                         <TableRow>

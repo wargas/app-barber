@@ -346,7 +346,7 @@ export type OrderServiceCreateInput = {
   custumer?: Prisma.CostumerCreateNestedOneWithoutOrderServicesInput
   service: Prisma.ServiceCreateNestedOneWithoutOrderServicesInput
   order: Prisma.OrderCreateNestedOneWithoutOrderServicesInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderServicesInput
+  user: Prisma.UserCreateNestedOneWithoutOrderServicesInput
 }
 
 export type OrderServiceUncheckedCreateInput = {
@@ -359,7 +359,7 @@ export type OrderServiceUncheckedCreateInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateInput = {
@@ -398,7 +398,7 @@ export type OrderServiceCreateManyInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateManyMutationInput = {
@@ -764,7 +764,7 @@ export type OrderServiceCreateWithoutBarberInput = {
   custumer?: Prisma.CostumerCreateNestedOneWithoutOrderServicesInput
   service: Prisma.ServiceCreateNestedOneWithoutOrderServicesInput
   order: Prisma.OrderCreateNestedOneWithoutOrderServicesInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderServicesInput
+  user: Prisma.UserCreateNestedOneWithoutOrderServicesInput
 }
 
 export type OrderServiceUncheckedCreateWithoutBarberInput = {
@@ -776,7 +776,7 @@ export type OrderServiceUncheckedCreateWithoutBarberInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceCreateOrConnectWithoutBarberInput = {
@@ -814,7 +814,7 @@ export type OrderServiceCreateWithoutServiceInput = {
   barber: Prisma.BarberCreateNestedOneWithoutOrderServicesInput
   custumer?: Prisma.CostumerCreateNestedOneWithoutOrderServicesInput
   order: Prisma.OrderCreateNestedOneWithoutOrderServicesInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderServicesInput
+  user: Prisma.UserCreateNestedOneWithoutOrderServicesInput
 }
 
 export type OrderServiceUncheckedCreateWithoutServiceInput = {
@@ -826,7 +826,7 @@ export type OrderServiceUncheckedCreateWithoutServiceInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceCreateOrConnectWithoutServiceInput = {
@@ -864,7 +864,7 @@ export type OrderServiceCreateWithoutCustumerInput = {
   barber: Prisma.BarberCreateNestedOneWithoutOrderServicesInput
   service: Prisma.ServiceCreateNestedOneWithoutOrderServicesInput
   order: Prisma.OrderCreateNestedOneWithoutOrderServicesInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderServicesInput
+  user: Prisma.UserCreateNestedOneWithoutOrderServicesInput
 }
 
 export type OrderServiceUncheckedCreateWithoutCustumerInput = {
@@ -876,7 +876,7 @@ export type OrderServiceUncheckedCreateWithoutCustumerInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceCreateOrConnectWithoutCustumerInput = {
@@ -914,7 +914,7 @@ export type OrderServiceCreateWithoutOrderInput = {
   barber: Prisma.BarberCreateNestedOneWithoutOrderServicesInput
   custumer?: Prisma.CostumerCreateNestedOneWithoutOrderServicesInput
   service: Prisma.ServiceCreateNestedOneWithoutOrderServicesInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderServicesInput
+  user: Prisma.UserCreateNestedOneWithoutOrderServicesInput
 }
 
 export type OrderServiceUncheckedCreateWithoutOrderInput = {
@@ -926,7 +926,7 @@ export type OrderServiceUncheckedCreateWithoutOrderInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceCreateOrConnectWithoutOrderInput = {
@@ -1012,7 +1012,7 @@ export type OrderServiceCreateManyBarberInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateWithoutBarberInput = {
@@ -1060,7 +1060,7 @@ export type OrderServiceCreateManyServiceInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateWithoutServiceInput = {
@@ -1108,7 +1108,7 @@ export type OrderServiceCreateManyCustumerInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateWithoutCustumerInput = {
@@ -1156,7 +1156,7 @@ export type OrderServiceCreateManyOrderInput = {
   description: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderServiceUpdateWithoutOrderInput = {

@@ -254,7 +254,7 @@ export type BarberCreateInput = {
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutBarberInput
   schedules?: Prisma.ScheduleCreateNestedManyWithoutBarberInput
-  user?: Prisma.UserCreateNestedOneWithoutBarbersInput
+  user: Prisma.UserCreateNestedOneWithoutBarbersInput
 }
 
 export type BarberUncheckedCreateInput = {
@@ -263,7 +263,7 @@ export type BarberUncheckedCreateInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutBarberInput
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutBarberInput
 }
@@ -296,7 +296,7 @@ export type BarberCreateManyInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type BarberUpdateManyMutationInput = {
@@ -501,7 +501,7 @@ export type BarberCreateWithoutOrderServicesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   schedules?: Prisma.ScheduleCreateNestedManyWithoutBarberInput
-  user?: Prisma.UserCreateNestedOneWithoutBarbersInput
+  user: Prisma.UserCreateNestedOneWithoutBarbersInput
 }
 
 export type BarberUncheckedCreateWithoutOrderServicesInput = {
@@ -510,7 +510,7 @@ export type BarberUncheckedCreateWithoutOrderServicesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutBarberInput
 }
 
@@ -557,7 +557,7 @@ export type BarberCreateWithoutSchedulesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutBarberInput
-  user?: Prisma.UserCreateNestedOneWithoutBarbersInput
+  user: Prisma.UserCreateNestedOneWithoutBarbersInput
 }
 
 export type BarberUncheckedCreateWithoutSchedulesInput = {
@@ -566,7 +566,7 @@ export type BarberUncheckedCreateWithoutSchedulesInput = {
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutBarberInput
 }
 

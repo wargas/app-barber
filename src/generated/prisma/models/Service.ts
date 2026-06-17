@@ -311,7 +311,7 @@ export type ServiceCreateInput = {
   orders?: Prisma.OrderCreateNestedManyWithoutServicesInput
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutServiceInput
   schedules?: Prisma.ScheduleCreateNestedManyWithoutServiceInput
-  user?: Prisma.UserCreateNestedOneWithoutServicesInput
+  user: Prisma.UserCreateNestedOneWithoutServicesInput
 }
 
 export type ServiceUncheckedCreateInput = {
@@ -321,7 +321,7 @@ export type ServiceUncheckedCreateInput = {
   duration: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutServicesInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutServiceInput
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutServiceInput
@@ -360,7 +360,7 @@ export type ServiceCreateManyInput = {
   duration: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ServiceUpdateManyMutationInput = {
@@ -633,7 +633,7 @@ export type ServiceCreateWithoutOrdersInput = {
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutServiceInput
   schedules?: Prisma.ScheduleCreateNestedManyWithoutServiceInput
-  user?: Prisma.UserCreateNestedOneWithoutServicesInput
+  user: Prisma.UserCreateNestedOneWithoutServicesInput
 }
 
 export type ServiceUncheckedCreateWithoutOrdersInput = {
@@ -643,7 +643,7 @@ export type ServiceUncheckedCreateWithoutOrdersInput = {
   duration: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutServiceInput
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutServiceInput
 }
@@ -678,7 +678,7 @@ export type ServiceCreateWithoutOrderServicesInput = {
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutServicesInput
   schedules?: Prisma.ScheduleCreateNestedManyWithoutServiceInput
-  user?: Prisma.UserCreateNestedOneWithoutServicesInput
+  user: Prisma.UserCreateNestedOneWithoutServicesInput
 }
 
 export type ServiceUncheckedCreateWithoutOrderServicesInput = {
@@ -688,7 +688,7 @@ export type ServiceUncheckedCreateWithoutOrderServicesInput = {
   duration: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutServicesInput
   schedules?: Prisma.ScheduleUncheckedCreateNestedManyWithoutServiceInput
 }
@@ -742,7 +742,7 @@ export type ServiceCreateWithoutSchedulesInput = {
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutServicesInput
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutServiceInput
-  user?: Prisma.UserCreateNestedOneWithoutServicesInput
+  user: Prisma.UserCreateNestedOneWithoutServicesInput
 }
 
 export type ServiceUncheckedCreateWithoutSchedulesInput = {
@@ -752,7 +752,7 @@ export type ServiceUncheckedCreateWithoutSchedulesInput = {
   duration: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutServicesInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutServiceInput
 }

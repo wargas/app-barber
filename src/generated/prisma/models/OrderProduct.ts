@@ -309,7 +309,7 @@ export type OrderProductCreateInput = {
   total: number
   order: Prisma.OrderCreateNestedOneWithoutOrderProductsInput
   product: Prisma.ProductCreateNestedOneWithoutOrderProductsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderProductsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderProductsInput
 }
 
 export type OrderProductUncheckedCreateInput = {
@@ -319,7 +319,7 @@ export type OrderProductUncheckedCreateInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductUpdateInput = {
@@ -349,7 +349,7 @@ export type OrderProductCreateManyInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductUpdateManyMutationInput = {
@@ -610,7 +610,7 @@ export type OrderProductCreateWithoutOrderInput = {
   price: number
   total: number
   product: Prisma.ProductCreateNestedOneWithoutOrderProductsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderProductsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderProductsInput
 }
 
 export type OrderProductUncheckedCreateWithoutOrderInput = {
@@ -619,7 +619,7 @@ export type OrderProductUncheckedCreateWithoutOrderInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductCreateOrConnectWithoutOrderInput = {
@@ -654,7 +654,7 @@ export type OrderProductCreateWithoutProductInput = {
   price: number
   total: number
   order: Prisma.OrderCreateNestedOneWithoutOrderProductsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderProductsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderProductsInput
 }
 
 export type OrderProductUncheckedCreateWithoutProductInput = {
@@ -663,7 +663,7 @@ export type OrderProductUncheckedCreateWithoutProductInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductCreateOrConnectWithoutProductInput = {
@@ -734,7 +734,7 @@ export type OrderProductCreateManyOrderInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductUpdateWithoutOrderInput = {
@@ -770,7 +770,7 @@ export type OrderProductCreateManyProductInput = {
   qty: number
   price: number
   total: number
-  userid?: string
+  userid: string
 }
 
 export type OrderProductUpdateWithoutProductInput = {

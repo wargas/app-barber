@@ -301,7 +301,7 @@ export type OrderPaymentCreateInput = {
   updatedAt?: Date | string
   method: Prisma.PaymentMethodsCreateNestedOneWithoutOrderPaymentsInput
   order: Prisma.OrderCreateNestedOneWithoutOrderPaymentsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateInput = {
@@ -311,7 +311,7 @@ export type OrderPaymentUncheckedCreateInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentUpdateInput = {
@@ -341,7 +341,7 @@ export type OrderPaymentCreateManyInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentUpdateManyMutationInput = {
@@ -598,7 +598,7 @@ export type OrderPaymentCreateWithoutOrderInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   method: Prisma.PaymentMethodsCreateNestedOneWithoutOrderPaymentsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateWithoutOrderInput = {
@@ -607,7 +607,7 @@ export type OrderPaymentUncheckedCreateWithoutOrderInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentCreateOrConnectWithoutOrderInput = {
@@ -642,7 +642,7 @@ export type OrderPaymentCreateWithoutMethodInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutOrderPaymentsInput
-  user?: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
+  user: Prisma.UserCreateNestedOneWithoutOrderPaymentsInput
 }
 
 export type OrderPaymentUncheckedCreateWithoutMethodInput = {
@@ -651,7 +651,7 @@ export type OrderPaymentUncheckedCreateWithoutMethodInput = {
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentCreateOrConnectWithoutMethodInput = {
@@ -722,7 +722,7 @@ export type OrderPaymentCreateManyOrderInput = {
   methodId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentUpdateWithoutOrderInput = {
@@ -758,7 +758,7 @@ export type OrderPaymentCreateManyMethodInput = {
   value: number
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderPaymentUpdateWithoutMethodInput = {

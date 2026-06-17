@@ -241,7 +241,7 @@ export type CostumerCreateInput = {
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutCustumerInput
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutCustumerInput
-  user?: Prisma.UserCreateNestedOneWithoutCostumersInput
+  user: Prisma.UserCreateNestedOneWithoutCostumersInput
 }
 
 export type CostumerUncheckedCreateInput = {
@@ -249,7 +249,7 @@ export type CostumerUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustumerInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutCustumerInput
 }
@@ -279,7 +279,7 @@ export type CostumerCreateManyInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type CostumerUpdateManyMutationInput = {
@@ -471,7 +471,7 @@ export type CostumerCreateWithoutOrdersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutCustumerInput
-  user?: Prisma.UserCreateNestedOneWithoutCostumersInput
+  user: Prisma.UserCreateNestedOneWithoutCostumersInput
 }
 
 export type CostumerUncheckedCreateWithoutOrdersInput = {
@@ -479,7 +479,7 @@ export type CostumerUncheckedCreateWithoutOrdersInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutCustumerInput
 }
 
@@ -523,7 +523,7 @@ export type CostumerCreateWithoutOrderServicesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   orders?: Prisma.OrderCreateNestedManyWithoutCustumerInput
-  user?: Prisma.UserCreateNestedOneWithoutCostumersInput
+  user: Prisma.UserCreateNestedOneWithoutCostumersInput
 }
 
 export type CostumerUncheckedCreateWithoutOrderServicesInput = {
@@ -531,7 +531,7 @@ export type CostumerUncheckedCreateWithoutOrderServicesInput = {
   name: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutCustumerInput
 }
 

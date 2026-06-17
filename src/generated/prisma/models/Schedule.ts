@@ -265,7 +265,7 @@ export type ScheduleCreateInput = {
   end: Date | string
   service: Prisma.ServiceCreateNestedOneWithoutSchedulesInput
   barber: Prisma.BarberCreateNestedOneWithoutSchedulesInput
-  user?: Prisma.UserCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
 }
 
 export type ScheduleUncheckedCreateInput = {
@@ -275,7 +275,7 @@ export type ScheduleUncheckedCreateInput = {
   barberid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleUpdateInput = {
@@ -305,7 +305,7 @@ export type ScheduleCreateManyInput = {
   barberid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleUpdateManyMutationInput = {
@@ -554,7 +554,7 @@ export type ScheduleCreateWithoutBarberInput = {
   start: Date | string
   end: Date | string
   service: Prisma.ServiceCreateNestedOneWithoutSchedulesInput
-  user?: Prisma.UserCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
 }
 
 export type ScheduleUncheckedCreateWithoutBarberInput = {
@@ -563,7 +563,7 @@ export type ScheduleUncheckedCreateWithoutBarberInput = {
   serviceid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleCreateOrConnectWithoutBarberInput = {
@@ -598,7 +598,7 @@ export type ScheduleCreateWithoutServiceInput = {
   start: Date | string
   end: Date | string
   barber: Prisma.BarberCreateNestedOneWithoutSchedulesInput
-  user?: Prisma.UserCreateNestedOneWithoutSchedulesInput
+  user: Prisma.UserCreateNestedOneWithoutSchedulesInput
 }
 
 export type ScheduleUncheckedCreateWithoutServiceInput = {
@@ -607,7 +607,7 @@ export type ScheduleUncheckedCreateWithoutServiceInput = {
   barberid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleCreateOrConnectWithoutServiceInput = {
@@ -678,7 +678,7 @@ export type ScheduleCreateManyBarberInput = {
   serviceid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleUpdateWithoutBarberInput = {
@@ -714,7 +714,7 @@ export type ScheduleCreateManyServiceInput = {
   barberid: string
   start: Date | string
   end: Date | string
-  userid?: string
+  userid: string
 }
 
 export type ScheduleUpdateWithoutServiceInput = {

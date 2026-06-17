@@ -277,7 +277,7 @@ export type ProductCreateInput = {
   qty: number
   price: number
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutProductInput
-  user?: Prisma.UserCreateNestedOneWithoutProductsInput
+  user: Prisma.UserCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateInput = {
@@ -285,7 +285,7 @@ export type ProductUncheckedCreateInput = {
   name: string
   qty: number
   price: number
-  userid?: string
+  userid: string
   orderProducts?: Prisma.OrderProductUncheckedCreateNestedManyWithoutProductInput
 }
 
@@ -312,7 +312,7 @@ export type ProductCreateManyInput = {
   name: string
   qty: number
   price: number
-  userid?: string
+  userid: string
 }
 
 export type ProductUpdateManyMutationInput = {
@@ -493,7 +493,7 @@ export type ProductCreateWithoutOrderProductsInput = {
   name: string
   qty: number
   price: number
-  user?: Prisma.UserCreateNestedOneWithoutProductsInput
+  user: Prisma.UserCreateNestedOneWithoutProductsInput
 }
 
 export type ProductUncheckedCreateWithoutOrderProductsInput = {
@@ -501,7 +501,7 @@ export type ProductUncheckedCreateWithoutOrderProductsInput = {
   name: string
   qty: number
   price: number
-  userid?: string
+  userid: string
 }
 
 export type ProductCreateOrConnectWithoutOrderProductsInput = {

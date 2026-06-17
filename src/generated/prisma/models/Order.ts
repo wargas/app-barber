@@ -314,7 +314,7 @@ export type OrderCreateInput = {
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateInput = {
@@ -324,7 +324,7 @@ export type OrderUncheckedCreateInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
@@ -366,7 +366,7 @@ export type OrderCreateManyInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderUpdateManyMutationInput = {
@@ -683,7 +683,7 @@ export type OrderCreateWithoutServicesInput = {
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutServicesInput = {
@@ -693,7 +693,7 @@ export type OrderUncheckedCreateWithoutServicesInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductUncheckedCreateNestedManyWithoutOrderInput
@@ -730,7 +730,7 @@ export type OrderCreateWithoutCustumerInput = {
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutCustumerInput = {
@@ -739,7 +739,7 @@ export type OrderUncheckedCreateWithoutCustumerInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
@@ -782,7 +782,7 @@ export type OrderCreateWithoutOrderServicesInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutOrdersInput
   orderPayments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutOrderServicesInput = {
@@ -792,7 +792,7 @@ export type OrderUncheckedCreateWithoutOrderServicesInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutOrdersInput
   orderPayments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductUncheckedCreateNestedManyWithoutOrderInput
@@ -850,7 +850,7 @@ export type OrderCreateWithoutOrderPaymentsInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutOrderPaymentsInput = {
@@ -860,7 +860,7 @@ export type OrderUncheckedCreateWithoutOrderPaymentsInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutOrderInput
   orderProducts?: Prisma.OrderProductUncheckedCreateNestedManyWithoutOrderInput
@@ -918,7 +918,7 @@ export type OrderCreateWithoutOrderProductsInput = {
   services?: Prisma.ServiceCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentCreateNestedManyWithoutOrderInput
-  user?: Prisma.UserCreateNestedOneWithoutOrdersInput
+  user: Prisma.UserCreateNestedOneWithoutOrdersInput
 }
 
 export type OrderUncheckedCreateWithoutOrderProductsInput = {
@@ -928,7 +928,7 @@ export type OrderUncheckedCreateWithoutOrderProductsInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
   services?: Prisma.ServiceUncheckedCreateNestedManyWithoutOrdersInput
   orderServices?: Prisma.OrderServiceUncheckedCreateNestedManyWithoutOrderInput
   orderPayments?: Prisma.OrderPaymentUncheckedCreateNestedManyWithoutOrderInput
@@ -1062,7 +1062,7 @@ export type OrderCreateManyCustumerInput = {
   done?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  userid?: string
+  userid: string
 }
 
 export type OrderUpdateWithoutCustumerInput = {
