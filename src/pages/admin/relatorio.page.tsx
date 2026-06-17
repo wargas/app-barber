@@ -3,6 +3,7 @@ import { Card, CardAction, CardContent, CardHeader } from "@/components/ui/card"
 import { Combobox, ComboboxContent, ComboboxInput, ComboboxItem, ComboboxList, ComboboxTrigger, ComboboxValue } from "@/components/ui/combobox"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Spinner } from "@/components/ui/spinner"
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { api } from "@/lib/api"
 import { format, startOfMonth } from "date-fns"
@@ -107,7 +108,9 @@ export function Component() {
                     </Field>
                     <Field>
                         <FieldLabel>&nbsp;</FieldLabel>
-                        <Button type="submit" variant={`outline`}>Filtrar</Button>
+                        <Button type="submit" variant={`outline`}>
+                            {query.isFetching && <Spinner />}
+                            Filtrar</Button>
                     </Field>
                 </form>
             </CardHeader>
