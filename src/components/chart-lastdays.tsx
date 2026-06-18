@@ -16,15 +16,15 @@ export function ChartLastDays() {
     const chartConfig = {
         services: {
             label: "Serviços",
-            color: "oklch(0.205 0 0)",
+            color: "oklch(0.491 0.27 292.581);",
         },
         products: {
             label: "Produtos",
-            color: "oklch(0.205 0 0)",
+            color: "oklch(0.491 0.27 292.581);",
         },
         total: {
             label: "Total",
-            color: "oklch(0.205 0 0)",
+            color: "oklch(0.491 0.27 292.581);",
         },
     } satisfies ChartConfig
 
