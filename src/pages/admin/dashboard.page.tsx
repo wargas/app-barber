@@ -1,5 +1,6 @@
 import { ChartLastDays } from "@/components/chart-lastdays";
 import { confirme } from "@/components/dialog-confirme";
+import { NumberTicker } from "@/components/motion/number-ticker";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -126,25 +127,34 @@ export function Component() {
             <Card>
                 <CardHeader>
                     <CardDescription>Barbeiros</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">{query?.barbers}</CardTitle>
+                    <CardTitle className="text-4xl font-semibold">
+                    <NumberTicker value={query?.barbers ?? 0} />
+                    </CardTitle>
                 </CardHeader>
             </Card>
             <Card>
                 <CardHeader>
                     <CardDescription>Serviços Cadastrados</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">{query?.servicos}</CardTitle>
+                    <CardTitle className="text-4xl font-semibold">
+                        <NumberTicker value={query?.servicos ?? 0} />
+                    </CardTitle>
                 </CardHeader>
             </Card>
             <Card>
                 <CardHeader>
                     <CardDescription>Numero de Comandas</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">{query?.orders.count}</CardTitle>
+                    <CardTitle className="text-4xl font-semibold">
+                        <NumberTicker value={query?.orders.count ?? 0} />
+                    </CardTitle>
                 </CardHeader>
             </Card>
             <Card>
                 <CardHeader>
                     <CardDescription>Receita R$</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">{(query?.orders.value ?? 0).toCurrency()}</CardTitle>
+                    <CardTitle className="text-4xl font-semibold">
+                        <NumberTicker value={query?.orders.value ?? 0} format={n => n.toCurrency()} />
+                        {/* {(query?.orders.value ?? 0).toCurrency()} */}
+                    </CardTitle>
                 </CardHeader>
             </Card>
 
