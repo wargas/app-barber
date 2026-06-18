@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Separator } from "@/components/ui/separator"
 import { Spinner } from "@/components/ui/spinner"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/motion/tabs"
 import { api } from "@/lib/api"
 import { FormOrderProduct } from "@/modals/form-order-product"
 import { FormOrderService } from "@/modals/form-order-service"
@@ -138,12 +138,12 @@ export function Component() {
 
             <Separator />
 
-            <Tabs defaultValue="services" className="w-full">
-                <TabsList className="w-full">
+            <Tabs defaultValue="services" className="w-full" variant="underline">
+                <TabsList className="w-full bg-card">
                     <TabsTrigger className="flex-1" value="services">Serviços ({sumBy(services, `price`).toCurrency()})</TabsTrigger>
                     <TabsTrigger className="flex-1" value="products">Produtos ({sumBy(products, `total`).toCurrency()})</TabsTrigger>
                     <TabsTrigger className="flex-1" value="payment">
-                        Pagamento
+                        Pagamento {` `}
                         {valorPago > 0 && valorPago == valorTotal && <Badge className="bg-green-700 h-4 text-xs">OK</Badge>}
                         {valorTotal > valorPago && <Badge className="bg-yellow-300" variant={`ghost`}>Falta {(valorTotal - valorPago).toCurrency()}</Badge>}
                     </TabsTrigger>
