@@ -85,7 +85,7 @@ export function Component() {
                             <SidebarMenu>
                                 <SidebarMenuItem className="flex items-center gap-2">
                                     <SidebarMenuButton asChild
-                                        tooltip="Quick Create"
+                                        tooltip="Criar Rápido"
                                         className="min-w-8 bg-primary text-primary-foreground duration-200 ease-linear hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground"
                                     >
                                         <button onClick={criarComanda}>
@@ -99,10 +99,10 @@ export function Component() {
                             <SidebarMenu>
 
                                 <SidebarMenuItem>
-                                    <SidebarMenuButton asChild tooltip="dashboard">
+                                    <SidebarMenuButton asChild tooltip="painel de controle">
                                         <Link to={'/dashboard'}>
                                             <IconDashboard />
-                                            <span>Dashboard</span>
+                                            <span>Painel de Controle</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
