@@ -1,5 +1,4 @@
 import { ChartLastDays } from "@/components/chart-lastdays";
-import { confirme } from "@/components/dialog-confirme";
 import { NumberTicker } from "@/components/motion/number-ticker";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
@@ -9,7 +8,7 @@ import { add, endOfMonth, endOfWeek, endOfYear, format, isAfter, parse, startOfM
 import { now } from "lodash";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo } from "react";
-import { useNavigate, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 
 const tipos = [
     { label: `Dia`, value: `dia` },
@@ -111,6 +110,7 @@ export function Component() {
     return (
         <div className="grid grid-cols-4 gap-4 p-4">
             <div className="col-span-4 flex justify-between">
+                
                 <ButtonGroup>
                     <Button onClick={handlePrev} variant={`outline`}><ChevronLeft /></Button>
                     <Button onClick={handleNext} variant={`outline`}><ChevronRight /></Button>
@@ -128,7 +128,7 @@ export function Component() {
                 <CardHeader>
                     <CardDescription>Barbeiros</CardDescription>
                     <CardTitle className="text-4xl font-semibold">
-                    <NumberTicker value={query?.barbers ?? 0} />
+                        <NumberTicker value={query?.barbers ?? 0} />
                     </CardTitle>
                 </CardHeader>
             </Card>
