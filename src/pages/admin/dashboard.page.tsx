@@ -108,9 +108,9 @@ export function Component() {
     }
 
     return (
-        <div className="grid grid-cols-4 gap-4 p-4">
+        <div className="flex flex-col gap-4 p-4">
             <div className="col-span-4 flex justify-between">
-                
+
                 <ButtonGroup>
                     <Button onClick={handlePrev} variant={`outline`}><ChevronLeft /></Button>
                     <Button onClick={handleNext} variant={`outline`}><ChevronRight /></Button>
@@ -124,40 +124,41 @@ export function Component() {
                     ))}
                 </ButtonGroup>
             </div>
-            <Card>
-                <CardHeader>
-                    <CardDescription>Barbeiros</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">
-                        <NumberTicker value={query?.barbers ?? 0} />
-                    </CardTitle>
-                </CardHeader>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardDescription>Serviços Cadastrados</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">
-                        <NumberTicker value={query?.servicos ?? 0} />
-                    </CardTitle>
-                </CardHeader>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardDescription>Numero de Comandas</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">
-                        <NumberTicker value={query?.orders.count ?? 0} />
-                    </CardTitle>
-                </CardHeader>
-            </Card>
-            <Card>
-                <CardHeader>
-                    <CardDescription>Receita R$</CardDescription>
-                    <CardTitle className="text-4xl font-semibold">
-                        <NumberTicker value={query?.orders.value ?? 0} format={n => n.toCurrency()} />
-                        {/* {(query?.orders.value ?? 0).toCurrency()} */}
-                    </CardTitle>
-                </CardHeader>
-            </Card>
-
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card>
+                    <CardHeader>
+                        <CardDescription>Barbeiros</CardDescription>
+                        <CardTitle className="text-4xl font-semibold">
+                            <NumberTicker value={query?.barbers ?? 0} />
+                        </CardTitle>
+                    </CardHeader>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardDescription>Serviços Cadastrados</CardDescription>
+                        <CardTitle className="text-4xl font-semibold">
+                            <NumberTicker value={query?.servicos ?? 0} />
+                        </CardTitle>
+                    </CardHeader>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardDescription>Numero de Comandas</CardDescription>
+                        <CardTitle className="text-4xl font-semibold">
+                            <NumberTicker value={query?.orders.count ?? 0} />
+                        </CardTitle>
+                    </CardHeader>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardDescription>Receita R$</CardDescription>
+                        <CardTitle className="text-4xl font-semibold">
+                            <NumberTicker value={query?.orders.value ?? 0} format={n => n.toCurrency()} />
+                            {/* {(query?.orders.value ?? 0).toCurrency()} */}
+                        </CardTitle>
+                    </CardHeader>
+                </Card>
+            </div>
             <div className="col-span-4">
                 <ChartLastDays />
             </div>
