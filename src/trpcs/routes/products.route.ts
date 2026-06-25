@@ -4,11 +4,16 @@ import z from "zod";
 import { omit } from "lodash";
 
 export const productsRouter = router({
-    list: protectedProcedure.query(async ({ctx}) => {
-        return await db.product.findMany({
-            where: { userid: ctx.userId }
-        });
-    }),
+    list: protectedProcedure
+        .input(z.object({ name: z.string().optional() }).optional())
+        .query(async ({ ctx, input }) => {
+            return await db.product.findMany({
+                where: {
+                    userid: ctx.userId,
+                    ...input?.name ? { name: { contains: input.name, mode: `insensitive` } } : {}
+                }
+            });
+        }),
     show: protectedProcedure
         .input(z.string())
         .query(async (opts) => {

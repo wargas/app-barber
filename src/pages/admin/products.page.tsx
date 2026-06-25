@@ -2,19 +2,29 @@ import { confirme } from "@/components/dialog-confirme"
 import { modal } from "@/components/modal"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
 import { Spinner } from "@/components/ui/spinner"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { api } from "@/lib/api"
 import { FormProduct } from "@/modals/form-product"
-import { Pen, Trash2Icon } from "lucide-react"
+import { Pen, Plus, Trash2Icon } from "lucide-react"
 import { Activity } from "react"
+import { useForm } from "react-hook-form"
+import { useNavigate, useSearchParams } from "react-router"
 import { toast } from "sonner"
 
 export const handle = { title: 'Produtos' }
 
+type FormSearchInput = {
+    name: string
+}
+
 export function Component() {
 
-    const services = api.products.list.useQuery()
+    const [params, setParams] = useSearchParams()
+    const formSearch = useForm<FormSearchInput>()
+
+    const services = api.products.list.useQuery(params.has(`name`) ? { name: params.get(`name`)?.toString() } : undefined)
     const { mutateAsync: deleteMutation } = api.products.delete.useMutation()
 
 
@@ -25,15 +35,19 @@ export function Component() {
     }
 
 
-    async function handleDelete(id:string) {
+    async function handleDelete(id: string) {
 
-        if(await confirme("Confirma a exclusão do produto")) {
-            
-             deleteMutation(id).then(async () => {
+        if (await confirme("Confirma a exclusão do produto")) {
+
+            deleteMutation(id).then(async () => {
                 toast("Excluido com sucesso")
                 services.refetch()
-             })
+            })
         }
+    }
+
+    function handleSubmitSearch(data: FormSearchInput) {
+        setParams(data)
     }
 
     return (
@@ -42,9 +56,19 @@ export function Component() {
             <Card className="gap-0">
                 <CardHeader className="border-b">
                     <CardTitle>Produtos</CardTitle>
-                    <CardDescription>Lista os tipos de produtos</CardDescription>
+                    <CardDescription>Lista os tipos de produtos ({services.data?.length})</CardDescription>
                     <CardAction>
-                        <Button variant={'outline'} onClick={() => handleOpenCreate()}>Adicionar</Button>
+                        <div className="flex gap-2">
+                            <Input {...formSearch.register(`name`)} />
+                            <Button onClick={formSearch.handleSubmit(handleSubmitSearch)} size={`sm`} variant={`outline`}>Filtrar</Button>
+
+                            <div className="ml-2">
+                                <Button size={`sm`} variant={'outline'} onClick={() => handleOpenCreate()}>
+                                    <Plus />
+                                    Adicionar
+                                </Button>
+                            </div>
+                        </div>
                     </CardAction>
                 </CardHeader>
                 <CardContent className="p-0">
@@ -67,11 +91,11 @@ export function Component() {
                             {services.data?.map(item => (
                                 <TableRow key={item.id}>
                                     <TableCell>{item.name}</TableCell>
-                                    <TableCell>{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}</TableCell>
+                                    <TableCell>{item.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</TableCell>
                                     <TableCell>{item.qty}</TableCell>
                                     <TableCell>
                                         <div className="flex justify-end">
-                                        <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
+                                            <Button size={"icon-sm"} variant={"ghost"} onClick={() => handleDelete(item.id)}>
                                                 <Trash2Icon />
                                             </Button>
                                             <Button onClick={() => handleOpenCreate(item.id)} size={'icon-sm'} variant={'ghost'}>

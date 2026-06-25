@@ -1,6 +1,6 @@
 import { api } from "@/lib/api";
 import { useEffect, useMemo } from "react";
-import { Link, Outlet, useLocation, useMatch, useMatches, useNavigate, type MiddlewareFunction } from "react-router";
+import { Link, NavLink, Outlet, useLocation, useMatch, useMatches, useNavigate, type MiddlewareFunction } from "react-router";
 import {
     Sidebar,
     SidebarContent,
@@ -17,12 +17,64 @@ import {
 import { NavUser } from "@/components/nav-user";
 import { IconCirclePlusFilled, IconDashboard, IconInnerShadowTop, IconMail } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
-import { FileText, LucideWatch, PersonStanding, ScissorsIcon, ShoppingBag, ShoppingBasket, User2, UserCheck, UserCircle } from "lucide-react";
+import { Badge, Check, ChevronRight, FileText, LucideWatch, PersonStanding, ScissorsIcon, ShoppingBag, ShoppingBasket, User2, UserCheck, UserCircle } from "lucide-react";
 import { modal } from "@/components/modal";
 import { FormComanda } from "@/modals/form-comanda";
 import { SiteHeader } from "@/components/site-header";
 import _ from "lodash";
 import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@/components/ui/item";
+import { Chevron } from "react-day-picker";
+
+const menuItems = [
+    {
+        title: "Dashboard",
+        to: "/dashboard",
+        icon: IconDashboard,
+        tooltip: "painel de controle",
+    },
+    {
+        title: "Comandas",
+        to: "/comandas",
+        icon: ShoppingBag,
+        tooltip: "comandas",
+    },
+    {
+        title: "Profissionais",
+        to: "/barbeiros",
+        icon: UserCircle,
+        tooltip: "barbeiros",
+    },
+    {
+        title: "Clientes",
+        to: "/clientes",
+        icon: UserCheck,
+        tooltip: "clientes",
+    },
+    {
+        title: "Serviços",
+        to: "/servicos",
+        icon: ScissorsIcon,
+        tooltip: "serviços",
+    },
+    {
+        title: "Produtos",
+        to: "/produtos",
+        icon: ShoppingBasket,
+        tooltip: "produtos",
+    },
+    {
+        title: "Agendamentos",
+        to: "/agenda",
+        icon: LucideWatch,
+        tooltip: "agenda",
+    },
+    {
+        title: "Relatórios",
+        to: "/relatorio",
+        icon: FileText,
+        tooltip: "relatório",
+    },
+]
 
 
 export function Component() {
@@ -71,7 +123,7 @@ export function Component() {
                 <SidebarHeader className="border-b bg-background">
                     <Item size={`sm`}>
                         <ItemMedia>
-                            <img className="w-8" src="https://fino-barbearia-sys.lovable.app/assets/logo-andre-barbearia-Ca6LAyk_.jpeg" alt=""  />
+                            <img className="w-8" src="https://fino-barbearia-sys.lovable.app/assets/logo-andre-barbearia-Ca6LAyk_.jpeg" alt="" />
                         </ItemMedia>
                         <ItemContent>
                             <ItemTitle>ANDRE</ItemTitle>
@@ -82,6 +134,7 @@ export function Component() {
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent className="flex flex-col gap-2">
+
                             <SidebarMenu>
                                 <SidebarMenuItem className="flex items-center gap-2">
                                     <SidebarMenuButton asChild
@@ -93,81 +146,25 @@ export function Component() {
                                             <span>COMANDA</span>
                                         </button>
                                     </SidebarMenuButton>
-                                    
+
                                 </SidebarMenuItem>
                             </SidebarMenu>
+
+
+
                             <SidebarMenu>
+                                {menuItems.map(item => (
 
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton asChild tooltip="painel de controle">
-                                        <Link to={'/dashboard'}>
-                                            <IconDashboard />
-                                            <span>Painel de Controle</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="barbeiros" asChild>
-                                        <Link to={'/comandas'}>
-                                            <ShoppingBag />
-                                            <span>Comandas</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="barbeiros" asChild>
-                                        <Link to={'/barbeiros'}>
-                                            <UserCircle />
-                                            <span>Profissionais</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton asChild tooltip="barbeiros">
-                                        <Link to={'/clientes'}>
-                                            <UserCheck />
-                                            <span>Clientes</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="barbeiros" asChild>
-                                        <Link to={'/servicos'}>
-                                            <ScissorsIcon />
-                                            <span>Serviços</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="barbeiros" asChild>
-                                        <Link to={'/produtos'}>
-                                            <ShoppingBasket />
-                                            <span>Produtos</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="agenda" asChild>
-                                        <Link to={'/agenda'}>
-                                            <LucideWatch />
-                                            <span>Agendamentos</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton tooltip="Relatorio" asChild>
-                                        <Link to={'/relatorio'}>
-                                            <FileText />
-                                            <span>Relatorios</span>
-                                        </Link>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
+                                    <SidebarMenuItem key={item.to}>
+                                        <SidebarMenuButton isActive={location.pathname.startsWith(item.to)} asChild tooltip={item.tooltip}>
+                                            <Link to={item.to}>
+                                                <item.icon />
+                                                <span className="flex-1">{item.title}</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                ))}
+                               
 
                             </SidebarMenu>
                         </SidebarGroupContent>
