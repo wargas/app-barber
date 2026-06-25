@@ -109,10 +109,10 @@ export function Component() {
 
     return (
         <div className="flex flex-col gap-4 p-4">
-            <div className="col-span-4 flex justify-between">
+            <div className="col-span-4 flex flex-col gap-4 sm:flex-row sm:justify-between">
 
                 <ButtonGroup>
-                    <Button onClick={handlePrev} variant={`outline`}><ChevronLeft /></Button>
+                    <Button onClick={handlePrev}  variant={`outline`}><ChevronLeft /></Button>
                     <Button onClick={handleNext} variant={`outline`}><ChevronRight /></Button>
                     <ButtonGroupSeparator />
                     <Button variant={`outline`}>{intervalText}</Button>
