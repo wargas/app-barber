@@ -89,18 +89,25 @@ export function Component() {
 
             <Card>
                 <CardHeader className="border-b">
-                    <CardAction>
-                        <div className="flex gap-4">
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex gap-2">
+
                             <Input value={searchData.get('start') ?? ''} onChange={v => setSearch('start', v.target.value)} type="date" />
                             <Input value={searchData.get('end') ?? ''} onChange={v => setSearch('end', v.target.value)} type="date" />
+                        </div>
+
+                        <div className="flex gap-4 justify-between">
                             <ToggleGroup value={searchData.get('status') ?? 'abertas'} onValueChange={v => setSearch('status', v)} variant={'outline'} type="single">
                                 <ToggleGroupItem value="abertas">Abertas</ToggleGroupItem>
                                 <ToggleGroupItem value="fechadas">Fechadas</ToggleGroupItem>
                                 <ToggleGroupItem value="todas">Todas</ToggleGroupItem>
                             </ToggleGroup>
-                            <Button onClick={criarComanda}><Plus />Nova Comanda</Button>
+                            <Button onClick={criarComanda} size={`sm`}>
+                                <Plus />
+                                <span className="hidden sm:block">Nova Comanda</span>
+                            </Button>
                         </div>
-                    </CardAction>
+                    </div>
                 </CardHeader>
                 <CardContent className="p-0">
                     <Table>
