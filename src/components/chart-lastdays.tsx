@@ -5,6 +5,9 @@ import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle }
 import { ButtonGroup } from "./ui/button-group"
 import { Button } from "./ui/button"
 import { useState } from "react"
+import { format } from "date-fns"
+import { ptBR } from "date-fns/locale";
+
 
 export function ChartLastDays() {
 
@@ -44,7 +47,7 @@ export function ChartLastDays() {
             <CardContent>
                 <ChartContainer config={chartConfig} className="max-h-60 w-full">
                     <BarChart accessibilityLayer data={queryDays.data ?? []}>
-                        <XAxis dataKey={`dia`} tickFormatter={t => t.replace(/(\d+)-(\d+)-(\d+)/, "$3/$2")} tickLine={false} axisLine={false} />
+                        <XAxis dataKey={`dia`} tickFormatter={(t: string) => ` ${format(`${t} 03:00:00`, `d/M (EEEEEE)`, { locale: ptBR, })}`} tickLine={false} axisLine={false} />
                         <Bar dataKey={key} fill="var(--color-services)" radius={4} />
                         <ChartTooltip content={<ChartTooltipContent labelFormatter={l => String(l).split("-").reverse().join("/")} formatter={(v) => parseFloat(String(v)).toCurrency()} />} />
                     </BarChart>
